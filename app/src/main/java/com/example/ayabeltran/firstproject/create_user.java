@@ -17,14 +17,14 @@ public class create_user extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_user);
         mydb = new dbhelper(this);
 
         etemail = (EditText) findViewById(R.id.etEmail);
         etuname = (EditText) findViewById(R.id.etUname);
         etpword = (EditText) findViewById(R.id.etPword);
         etfname = (EditText) findViewById(R.id.etFname);
-        etlname = (EditText) findViewById(R.id.etFname);
+        etlname = (EditText) findViewById(R.id.etLname);
         btnreg2 = (Button) findViewById(R.id.btnReg2);
 
         Register();
