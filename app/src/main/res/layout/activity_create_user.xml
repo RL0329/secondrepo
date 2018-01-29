@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ayabeltran.firstproject.create_user">
 
     <EditText
         android:id="@+id/etEmail"
@@ -9,12 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
         android:ems="10"
-        android:inputType="textEmailAddress|textWebEmailAddress"
+        android:inputType="textEmailAddress"
         android:text="@string/email" />
 
     <EditText
-        android:id="@+id/etUname"
+        android:id="@+id/etUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etEmail"
@@ -28,8 +32,8 @@
         android:id="@+id/etPword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etUname"
-        android:layout_below="@+id/etUname"
+        android:layout_alignStart="@+id/etUsername"
+        android:layout_below="@+id/etUsername"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPassword|textWebPassword|numberPassword"
@@ -50,7 +54,7 @@
         android:id="@+id/etFname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etCpword"
+        android:layout_alignEnd="@+id/etCpword"
         android:layout_below="@+id/etCpword"
         android:layout_marginTop="20dp"
         android:ems="10"
@@ -74,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="12dp"
         android:text="@string/register" />
 
 </android.widget.RelativeLayout>
