@@ -46,26 +46,15 @@ public class create_user extends AppCompatActivity {
                         if (isInserted = true){
                             Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
 
+                            Intent toLogin = new Intent(create_user.this,UserLogin.class);
+                            startActivity(toLogin);
+
                             etemail.setText("");
                             etuname.setText("");
                             etpword.setText("");
                             etcpword.setText("");
                             etfname.setText("");
                             etlname.setText("");
-
-<<<<<<< HEAD
-                            
-=======
-                            btnreg2.setOnClickListener(
-                                    new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent("android.intent.action.MAIN");
-                                            startActivity(intent);
-                                        }
-                                    }
-                            );
->>>>>>> ad344fbb954c876a699a371fdc28a09d81c2731f
 
                         }
 
