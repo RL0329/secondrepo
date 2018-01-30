@@ -25,13 +25,7 @@
         </activity>
         <activity android:name=".UserLogin" />
         <activity android:name=".ListDisplay" />
-<<<<<<< HEAD
-=======
-        <activity android:name=".ToolbarRecycler">
-
-
-        </activity>
->>>>>>> 07b44d6d5533f8f20b947b7058327365bb07c2f6
+        <activity android:name=".List"></activity>
     </application>
 
 </manifest>
