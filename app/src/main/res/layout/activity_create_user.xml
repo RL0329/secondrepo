@@ -18,7 +18,7 @@
         android:text="@string/email" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etEmail"
@@ -32,8 +32,8 @@
         android:id="@+id/etPword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/etUsername"
-        android:layout_below="@+id/etUsername"
+        android:layout_alignStart="@+id/etUname"
+        android:layout_below="@+id/etUname"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPassword|textWebPassword|numberPassword"
