@@ -33,6 +33,7 @@ public class create_user extends AppCompatActivity {
         Register();
     }
 
+<<<<<<< HEAD
 
     public void GetInputs() {
 
@@ -56,10 +57,43 @@ public class create_user extends AppCompatActivity {
         }
 
     }
+=======
+    public void Register() {
+        btnreg2.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                            boolean isInserted = mydb.insertData(
+                                    etemail.getText().toString(),
+                                    etuname.getText().toString(),
+                                    etpword.getText().toString(),
+                                    etfname.getText().toString(),
+                                    etlname.getText().toString());
+
+                            if (isInserted) {
+
+                                Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
+
+                                Intent toLogin = new Intent(create_user.this, UserLogin.class);
+                                startActivity(toLogin);
+
+
+                                etemail.setText("");
+                                etuname.setText("");
+                                etpword.setText("");
+                                etcpword.setText("");
+                                etfname.setText("");
+                                etlname.setText("");
+>>>>>>> fcdc239ca4ae3eea3e6437db2646ffb2e839c460
 
     public boolean UsernameEmailValidation() {
 
+                            } else {
+                                Toast.makeText(create_user.this, "your email or username is already in use.", Toast.LENGTH_LONG).show();
 
+<<<<<<< HEAD
     }
     public void Register() {
         btnreg2.setOnClickListener(
@@ -69,8 +103,19 @@ public class create_user extends AppCompatActivity {
 
                         GetInputs();
                         PasswordValidation();
+=======
+                                etemail.setText("");
+                                etuname.setText("");
+                                etpword.setText("");
+                                etcpword.setText("");
+                                etfname.setText("");
+                                etlname.setText("");
 
-                    }
+                            }
+                        }
+>>>>>>> fcdc239ca4ae3eea3e6437db2646ffb2e839c460
+
+
                 });
 
     }
