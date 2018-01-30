@@ -6,20 +6,34 @@
     android:layout_height="match_parent"
     tools:context="com.example.ayabeltran.firstproject.UserLogin">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignStart="@+id/uploadtoolbar"
-        android:layout_below="@+id/uploadtoolbar" />
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/uploadtoolbar"
-        android:layout_width="380dp"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
+    <EditText
+        android:id="@+id/usernamelog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="177dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passwordlog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp"
+        android:text="Login" />
+
+    <EditText
+        android:id="@+id/passwordlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/usernamelog"
+        android:layout_below="@+id/usernamelog"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
 </RelativeLayout>

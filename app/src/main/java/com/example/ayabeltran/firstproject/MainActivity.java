@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     dbhelper mydb;
 
     Button btnreg1;
+    Button Login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +23,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveTo(){
-        btnreg1 = (Button) findViewById(R.id.btnReg1);
+        btnreg1 = findViewById(R.id.btnReg1);
+        Login = findViewById(R.id.btnLogin);
+
+        //on clicks
+
         btnreg1.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.example.ayabeltran.firstproject.create_user");
+                        Intent intent = new Intent(MainActivity.this,create_user.class);
                         startActivity(intent);
                     }
-                }
-        );
+                });
+
+        Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent movetoLogin = new Intent(MainActivity.this, UserLogin.class);
+                startActivity(movetoLogin);
+            }
+        });
+
     }
 }

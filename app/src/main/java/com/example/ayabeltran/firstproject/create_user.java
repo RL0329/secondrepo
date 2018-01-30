@@ -44,19 +44,15 @@ public class create_user extends AppCompatActivity {
                                 etpword.getText().toString(),
                                 etfname.getText().toString(),
                                 etlname.getText().toString());
-                        
+
+
                         if (isInserted){
 
-                            btnreg2.setOnClickListener(
-                                    new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent("android.intent.action.MAIN");
-                                            startActivity(intent);
-                                        }
-                                    }
-                            );
+
                             Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
+
+                            Intent toLogin = new Intent(create_user.this,UserLogin.class);
+                            startActivity(toLogin);
 
                             etemail.setText("");
                             etuname.setText("");
@@ -64,6 +60,7 @@ public class create_user extends AppCompatActivity {
                             etcpword.setText("");
                             etfname.setText("");
                             etlname.setText("");
+
 
 
 
