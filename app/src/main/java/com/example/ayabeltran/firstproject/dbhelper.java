@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class dbhelper extends SQLiteOpenHelper{
 
-        public static final String dbname = "task1.db";
+        public static final String dbname = "task2.db";
         public static final String Tname = "loginDetails";
         public static final String col1 ="id";
         public static final String col2 ="email";
@@ -22,14 +22,15 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String col6 ="lname";
 
     public dbhelper(Context context) {
-        super(context, dbname, null, 1);
+        super(context, dbname, null, 2);
         Log.d("database", "db created");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("database", "table created");
-        db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text, "+col3+" text, "+col4+" text, "+col5+" text, "+col6+" text, CONSTRAINT name_unique UNIQUE ("+col2+", "+col3+"));");
+
+        db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
 
     }
 
