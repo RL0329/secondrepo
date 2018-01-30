@@ -14,8 +14,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="@string/email" />
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etUname"
@@ -25,8 +25,8 @@
         android:layout_below="@+id/etEmail"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/username" />
+        android:hint="@string/username"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etPword"
@@ -36,8 +36,8 @@
         android:layout_below="@+id/etUname"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPassword|textWebPassword|numberPassword"
-        android:text="@string/password" />
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etCpword"
@@ -47,8 +47,8 @@
         android:layout_below="@+id/etPword"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPassword|textWebPassword|numberPassword"
-        android:text="@string/confirm_password" />
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/etFname"
@@ -58,8 +58,8 @@
         android:layout_below="@+id/etCpword"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/first_name" />
+        android:hint="@string/first_name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etLname"
@@ -69,8 +69,8 @@
         android:layout_below="@+id/etFname"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/last_name" />
+        android:hint="@string/last_name"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnReg2"

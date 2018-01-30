@@ -20,12 +20,13 @@ public class create_user extends AppCompatActivity {
         setContentView(R.layout.activity_create_user);
         mydb = new dbhelper(this);
 
-        etemail = findViewById(R.id.etEmail);
-        etuname = findViewById(R.id.etUname);
-        etpword = findViewById(R.id.etPword);
-        etfname = findViewById(R.id.etFname);
-        etlname = findViewById(R.id.etLname);
-        btnreg2 = findViewById(R.id.btnReg2);
+
+        etemail =  findViewById(R.id.etEmail);
+        etuname =  findViewById(R.id.etUname);
+        etpword =  findViewById(R.id.etPword);
+        etfname =  findViewById(R.id.etFname);
+        etlname =  findViewById(R.id.etLname);
+        btnreg2 =  findViewById(R.id.btnReg2);
 
         Register();
     }
