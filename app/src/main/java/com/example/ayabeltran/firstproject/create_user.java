@@ -38,20 +38,14 @@ public class create_user extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted =  mydb.insertData(etemail.getText().toString(),
+                        boolean isInserted =  mydb.insertData(
+                                etemail.getText().toString(),
                                 etuname.getText().toString(),
                                 etpword.getText().toString(),
                                 etfname.getText().toString(),
                                 etlname.getText().toString());
-                        if (isInserted = true){
-                            Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
-
-                            etemail.setText("");
-                            etuname.setText("");
-                            etpword.setText("");
-                            etcpword.setText("");
-                            etfname.setText("");
-                            etlname.setText("");
+                        
+                        if (isInserted){
 
                             btnreg2.setOnClickListener(
                                     new View.OnClickListener() {
@@ -62,6 +56,16 @@ public class create_user extends AppCompatActivity {
                                         }
                                     }
                             );
+                            Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
+
+                            etemail.setText("");
+                            etuname.setText("");
+                            etpword.setText("");
+                            etcpword.setText("");
+                            etfname.setText("");
+                            etlname.setText("");
+
+
 
                         }
 
