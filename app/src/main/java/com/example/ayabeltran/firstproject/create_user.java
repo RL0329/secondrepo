@@ -20,6 +20,7 @@ public class create_user extends AppCompatActivity {
         setContentView(R.layout.activity_create_user);
         mydb = new dbhelper(this);
 
+
         etemail =  findViewById(R.id.etEmail);
         etuname =  findViewById(R.id.etUname);
         etpword =  findViewById(R.id.etPword);
