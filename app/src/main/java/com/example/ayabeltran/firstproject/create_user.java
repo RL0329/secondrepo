@@ -12,7 +12,7 @@ public class create_user extends AppCompatActivity {
 
     dbhelper mydb;
 
-    EditText etemail, etuname, etpword,etcpword, etfname, etlname;
+    EditText etemail, etuname, etpword, etcpword, etfname, etlname;
     Button btnreg2;
 
     @Override
@@ -22,42 +22,17 @@ public class create_user extends AppCompatActivity {
         mydb = new dbhelper(this);
 
 
-        etemail =  findViewById(R.id.etEmail);
-        etuname =  findViewById(R.id.etUname);
-        etpword =  findViewById(R.id.etPword);
+        etemail = findViewById(R.id.etEmail);
+        etuname = findViewById(R.id.etUname);
+        etpword = findViewById(R.id.etPword);
         etcpword = findViewById(R.id.etCpword);
-        etfname =  findViewById(R.id.etFname);
-        etlname =  findViewById(R.id.etLname);
-        btnreg2 =  findViewById(R.id.btnReg2);
+        etfname = findViewById(R.id.etFname);
+        etlname = findViewById(R.id.etLname);
+        btnreg2 = findViewById(R.id.btnReg2);
 
         Register();
     }
 
-<<<<<<< HEAD
-
-    public void GetInputs() {
-
-        boolean isInserted = mydb.insertData(
-                etemail.getText().toString(),
-                etuname.getText().toString(),
-                etpword.getText().toString(),
-                etfname.getText().toString(),
-                etlname.getText().toString());
-
-    }
-
-    public boolean PasswordValidation() {
-
-        if (etpword != etcpword) {
-            Toast.makeText(create_user.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(create_user.this, "Passwords matched!", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-=======
     public void Register() {
         btnreg2.setOnClickListener(
                 new View.OnClickListener() {
@@ -65,56 +40,33 @@ public class create_user extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                            boolean isInserted = mydb.insertData(
-                                    etemail.getText().toString(),
-                                    etuname.getText().toString(),
-                                    etpword.getText().toString(),
-                                    etfname.getText().toString(),
-                                    etlname.getText().toString());
+                        boolean isInserted = mydb.insertData(
+                                etemail.getText().toString(),
+                                etuname.getText().toString(),
+                                etpword.getText().toString(),
+                                etfname.getText().toString(),
+                                etlname.getText().toString());
 
-                            if (isInserted) {
+                        if (isInserted) {
 
-                                Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
 
-                                Intent toLogin = new Intent(create_user.this, UserLogin.class);
-                                startActivity(toLogin);
+                            Intent toLogin = new Intent(create_user.this, UserLogin.class);
+                            startActivity(toLogin);
 
 
-                                etemail.setText("");
-                                etuname.setText("");
-                                etpword.setText("");
-                                etcpword.setText("");
-                                etfname.setText("");
-                                etlname.setText("");
->>>>>>> fcdc239ca4ae3eea3e6437db2646ffb2e839c460
+                            etemail.setText("");
+                            etuname.setText("");
+                            etpword.setText("");
+                            etcpword.setText("");
+                            etfname.setText("");
+                            etlname.setText("");
 
-    public boolean UsernameEmailValidation() {
+                        } else {
+                            Toast.makeText(create_user.this, "your email or username is already in use.", Toast.LENGTH_LONG).show();
 
-                            } else {
-                                Toast.makeText(create_user.this, "your email or username is already in use.", Toast.LENGTH_LONG).show();
-
-<<<<<<< HEAD
-    }
-    public void Register() {
-        btnreg2.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        GetInputs();
-                        PasswordValidation();
-=======
-                                etemail.setText("");
-                                etuname.setText("");
-                                etpword.setText("");
-                                etcpword.setText("");
-                                etfname.setText("");
-                                etlname.setText("");
-
-                            }
                         }
->>>>>>> fcdc239ca4ae3eea3e6437db2646ffb2e839c460
-
+                    }
 
                 });
 

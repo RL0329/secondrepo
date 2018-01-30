@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserLogin" />
-        <activity android:name=".ListDisplay"></activity>
+        <activity android:name=".ListDisplay" />
+        <activity android:name=".ToolbarRecycler"></activity>
     </application>
 
 </manifest>
