@@ -41,15 +41,17 @@ public class create_user extends AppCompatActivity {
                                 etpword.getText().toString(),
                                 etfname.getText().toString(),
                                 etlname.getText().toString());
-                        if (isInserted = true)
+                        if (isInserted = true){
                             Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
 
-                        etemail.setText("");
-                        etuname.setText("");
-                        etpword.setText("");
+                            etemail.setText("");
+                            etuname.setText("");
+                            etpword.setText("");
+                        }
                         
-                        else
+                        else{
                             Toast.makeText(create_user.this, "your email or username is already in use.", Toast.LENGTH_LONG).show();
+                        }
 
                     }
                 });
