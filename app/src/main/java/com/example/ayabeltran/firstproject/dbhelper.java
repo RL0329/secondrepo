@@ -2,6 +2,7 @@ package com.example.ayabeltran.firstproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class dbhelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertData(String email, String uname, String pword, String fname, String lname) {
+    public boolean adduser(String email, String uname, String pword, String fname, String lname) {
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(col2, email);
@@ -55,5 +56,10 @@ public class dbhelper extends SQLiteOpenHelper{
             return false;
         else
             return true;
+    }
+
+    public Cursor userlogin(String loginuname, String loginpword, SQLiteDatabase db){
+        Cursor cursor = db.rawQuery("select * from "+Tname+" where "+col3+" = ' etloginame ' and "+col4+" = 'etloginpword '", null);
+        return cursor;
     }
 }

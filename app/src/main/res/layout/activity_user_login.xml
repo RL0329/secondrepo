@@ -18,7 +18,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etLogoinPword"
+        android:id="@+id/etLoginPword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etLoginUname"
@@ -31,7 +31,7 @@
         android:id="@+id/btn_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etLogoinPword"
+        android:layout_below="@+id/etLoginPword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
         android:text="@string/log_in" />
