@@ -11,7 +11,7 @@ public class create_user extends AppCompatActivity {
 
     dbhelper mydb;
 
-    EditText etemail, etuname, etpword, etfname, etlname;
+    EditText etemail, etuname, etpword,etcpword, etfname, etlname;
     Button btnreg2;
 
     @Override
@@ -24,6 +24,7 @@ public class create_user extends AppCompatActivity {
         etemail =  findViewById(R.id.etEmail);
         etuname =  findViewById(R.id.etUname);
         etpword =  findViewById(R.id.etPword);
+        etcpword = findViewById(R.id.etCpword);
         etfname =  findViewById(R.id.etFname);
         etlname =  findViewById(R.id.etLname);
         btnreg2 =  findViewById(R.id.btnReg2);
@@ -47,8 +48,12 @@ public class create_user extends AppCompatActivity {
                             etemail.setText("");
                             etuname.setText("");
                             etpword.setText("");
+                            etcpword.setText("");
+                            etfname.setText("");
+                            etlname.setText("");
+
                         }
-                        
+
                         else{
                             Toast.makeText(create_user.this, "your email or username is already in use.", Toast.LENGTH_LONG).show();
                         }
