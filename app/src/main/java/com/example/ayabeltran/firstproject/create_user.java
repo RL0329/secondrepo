@@ -43,7 +43,7 @@ public class create_user extends AppCompatActivity {
                                 etpword.getText().toString(),
                                 etfname.getText().toString(),
                                 etlname.getText().toString());
-                        if (isInserted = true){
+                        if (isInserted){
                             Toast.makeText(create_user.this, "you are now registered.", Toast.LENGTH_LONG).show();
 
                             Intent toLogin = new Intent(create_user.this,UserLogin.class);
