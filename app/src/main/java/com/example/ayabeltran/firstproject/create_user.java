@@ -1,5 +1,6 @@
 package com.example.ayabeltran.firstproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +52,16 @@ public class create_user extends AppCompatActivity {
                             etcpword.setText("");
                             etfname.setText("");
                             etlname.setText("");
+
+                            btnreg2.setOnClickListener(
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent("android.intent.action.MAIN");
+                                            startActivity(intent);
+                                        }
+                                    }
+                            );
 
                         }
 
