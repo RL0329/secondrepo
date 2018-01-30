@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Lorenzo11 on 29/01/2018.
@@ -22,11 +23,12 @@ public class dbhelper extends SQLiteOpenHelper{
 
     public dbhelper(Context context) {
         super(context, dbname, null, 1);
-
+        Log.d("database", "db created");
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("database", "table created");
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text, "+col3+" text, "+col4+" text, "+col5+" text, "+col6+" text, CONSTRAINT name_unique UNIQUE ("+col2+", "+col3+"));");
 
     }
