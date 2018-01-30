@@ -28,7 +28,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btnlogin"
+        android:id="@+id/btn_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etLogoinPword"

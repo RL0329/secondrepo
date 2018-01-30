@@ -14,6 +14,7 @@ public class dbhelper extends SQLiteOpenHelper{
 
         public static final String dbname = "task2.db";
         public static final String Tname = "loginDetails";
+        public static final String Tname2 = "imgTable";
         public static final String col1 ="id";
         public static final String col2 ="email";
         public static final String col3 ="uname";
@@ -31,12 +32,13 @@ public class dbhelper extends SQLiteOpenHelper{
         Log.d("database", "table created");
 
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
-
+        db.execSQL("create table "+Tname2+" (id integer primary key autoincrement, photo blob not null, name text not null, des text not null);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists "+Tname);
+        db.execSQL("drop table if exists " + Tname2);
         onCreate(db);
     }
 
