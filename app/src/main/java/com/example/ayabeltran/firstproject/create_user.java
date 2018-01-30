@@ -52,6 +52,8 @@ public class create_user extends AppCompatActivity {
                             etfname.setText("");
                             etlname.setText("");
 
+                            
+
                         }
 
                         else{
