@@ -7,15 +7,16 @@ package com.example.ayabeltran.firstproject;
 public class Place {
 
     private int id;
+    private int photo;
     private String name;
-    private String description;
-    private int imageId;
+    private String des;
 
-    public Place(int id, String name, String price, String description, int imageId) {
+    public Place(int id, int photo, String name, String des) {
+
         this.id = id;
+        this.photo = photo;
         this.name = name;
-        this.description = description;
-        this.imageId = imageId;
+        this.des = des;
     }
 
     public int getId() {
@@ -26,6 +27,14 @@ public class Place {
         this.id = id;
     }
 
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,20 +43,12 @@ public class Place {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDes() {
+        return des;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setDes(String des) {
+        this.des = des;
     }
 }
 

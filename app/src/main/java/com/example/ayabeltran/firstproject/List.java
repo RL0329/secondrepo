@@ -24,11 +24,6 @@ public class List extends AppCompatActivity {
 
         add = findViewById(R.id.btnadd);
         recyclerView = findViewById(R.id.recyclerview);
-        RecyclerAdapter adapter = new RecyclerAdapter(places);
-        recyclerView.setAdapter(adapter);
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(mLayoutManager);
 
 
 
