@@ -40,7 +40,7 @@ public class create_user extends AppCompatActivity {
                     public void onClick(View v) {
 
 
-                        boolean isInserted = mydb.insertData(
+                        boolean isInserted = mydb.adduser(
                                 etemail.getText().toString(),
                                 etuname.getText().toString(),
                                 etpword.getText().toString(),

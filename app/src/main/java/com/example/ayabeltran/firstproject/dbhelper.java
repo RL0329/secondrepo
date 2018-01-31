@@ -2,9 +2,11 @@ package com.example.ayabeltran.firstproject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 
 /**
  * Created by Lorenzo11 on 29/01/2018.
@@ -12,7 +14,7 @@ import android.util.Log;
 
 public class dbhelper extends SQLiteOpenHelper{
 
-        public static final String dbname = "task2.db";
+        public static final String dbname = "task1_3rd.db";
         public static final String Tname = "loginDetails";
         public static final String Tname2 = "imgTable";
         public static final String col1 ="id";
@@ -23,7 +25,7 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String col6 ="lname";
 
     public dbhelper(Context context) {
-        super(context, dbname, null, 2);
+        super(context, dbname, null, 3);
         Log.d("database", "db created");
     }
 
@@ -42,7 +44,7 @@ public class dbhelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertData(String email, String uname, String pword, String fname, String lname) {
+    public boolean adduser(String email, String uname, String pword, String fname, String lname) {
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(col2, email);
@@ -55,5 +57,12 @@ public class dbhelper extends SQLiteOpenHelper{
             return false;
         else
             return true;
+    }
+
+    public Cursor userlogin(String loginame, String loginpword, SQLiteDatabase db){
+        String query = "select * from loginDetails where uname = '"+loginame+"' and pword = '"+loginpword+"'";
+        Log.d("query", query);
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
     }
 }
