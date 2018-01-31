@@ -23,6 +23,11 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String col4 ="pword";
         public static final String col5 ="fname";
         public static final String col6 ="lname";
+        String t2col1 ="id",
+                t2col2="photo",
+                t2col3="name",
+                t2col4="des";
+
 
     public dbhelper(Context context) {
         super(context, dbname, null, 3);
@@ -34,7 +39,7 @@ public class dbhelper extends SQLiteOpenHelper{
         Log.d("database", "table created");
 
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
-        db.execSQL("create table "+Tname2+" (id integer primary key autoincrement, photo blob not null, name text not null, des text not null);");
+        db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
     }
 
     @Override
@@ -55,6 +60,19 @@ public class dbhelper extends SQLiteOpenHelper{
         long result = db.insert(Tname, null, contentValues);
         if (result == -1)
             return false;
+        else
+            return true;
+    }
+
+    public boolean addimg(byte[] photo, String name, String des){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(t2col2, photo);
+        contentValues.put(t2col3, name);
+        contentValues.put(t2col4, des);
+         long result = db.insert(Tname2, null, contentValues);
+         if(result == -1)
+             return false;
         else
             return true;
     }

@@ -9,5 +9,10 @@
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="title_activity_create_user">create_user</string>
+    <string name="welcome">Welcome</string>
+    <string name="description">Description</string>
+    <string name="add_img">Add Image</string>
+    <string name="name">name</string>
+    <string name="insert_img">insert img</string>
 
 </resources>

@@ -31,7 +31,7 @@ public class List extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent toUpload = new Intent(List.this, ListDisplay.class);
+                Intent toUpload = new Intent(List.this, newImg.class);
                 startActivity(toUpload);
             }
         });
