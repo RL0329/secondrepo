@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,7 @@ public class UserLogin extends AppCompatActivity {
 
     dbhelper mydb;
 
-    EditText etloginame, etloginpword;
+    public static EditText etloginame, etloginpword;
     Button btn_login;
     SQLiteDatabase sqLiteDatabase;
 
@@ -42,15 +43,18 @@ public class UserLogin extends AppCompatActivity {
                         String loginame = etloginame.getText().toString();
                         String loginpword = etloginpword.getText().toString();
                         Cursor res = mydb.userlogin(loginame, loginpword, sqLiteDatabase);
+
                         if(res.moveToFirst()){
-                            Intent intent = new Intent(UserLogin.this,create_user.class);
+                            Intent intent = new Intent(UserLogin.this,List.class);
                             startActivity(intent);
+
+                            Toast.makeText(UserLogin.this, "welcome "+loginame+"!", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            Toast.makeText(UserLogin.this, "your username and password do not match.", Toast.LENGTH_LONG).show();
-                            etloginame.setText("");
-                            etloginpword.setText("");
-                        }
+                            else {
+                                Toast.makeText(UserLogin.this, "your username and password do not match.", Toast.LENGTH_LONG).show();
+                                etloginame.setText("");
+                                etloginpword.setText("");
+                            }
                     }
                 }
         );
