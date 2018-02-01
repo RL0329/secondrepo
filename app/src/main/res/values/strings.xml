@@ -10,5 +10,12 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="title_activity_create_user">create_user</string>
     <string name="welcome">Welcome</string>
+<<<<<<< HEAD
+=======
+    <string name="description">Description</string>
+    <string name="add_img">Add Image</string>
+    <string name="name">name</string>
+    <string name="insert_img">insert img</string>
+>>>>>>> aca74e5a5f131dd480c2f2cff3e8b045c4040665
 
 </resources>

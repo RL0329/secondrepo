@@ -25,7 +25,8 @@
         </activity>
         <activity android:name=".UserLogin" />
         <activity android:name=".ListDisplay" />
-        <activity android:name=".List"></activity>
+        <activity android:name=".List" />
+        <activity android:name=".newImg"></activity>
     </application>
 
 </manifest>

@@ -25,14 +25,20 @@
         android:text="@string/register" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvWelcom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
+<<<<<<< HEAD
         android:textSize="50sp"
         android:text="@string/welcome" />
+=======
+        android:text="@string/welcome"
+        android:textSize="50sp" />
+
+>>>>>>> aca74e5a5f131dd480c2f2cff3e8b045c4040665
 
 </android.widget.RelativeLayout>
 
