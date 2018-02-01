@@ -87,8 +87,8 @@ public class dbhelper extends SQLiteOpenHelper{
     }
 
 
-    public Cursor itemslisted (byte[] photo, String name, String des, SQLiteDatabase db) {
-        String items = "select * from imgTable where photo ='" + photo + "' and name ='" + name + "' and des ='" + des + "'";
+    public Cursor itemslisted (SQLiteDatabase db) {
+        String items = "select * from imgTable";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
 

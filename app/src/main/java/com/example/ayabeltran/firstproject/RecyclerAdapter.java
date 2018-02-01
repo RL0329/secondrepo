@@ -2,12 +2,17 @@ package com.example.ayabeltran.firstproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,10 +26,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     private ArrayList<Place> places = new ArrayList<>();
     private Context context;
 
+
+
     public RecyclerAdapter(ArrayList<Place> places, Context context) {
         this.places = places;
         this.context = context;
     }
+
 
 
     @Override
@@ -37,10 +45,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name;
-        TextView des;
-        ImageView photo;
+         TextView name;
+         TextView des;
+         ImageView photo;
         Place selectedPlace;
+
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -48,6 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
             photo = itemView.findViewById(R.id.displayimage);
             name = itemView.findViewById(R.id.textname);
             des = itemView.findViewById(R.id.textdetails);
+
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +76,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     }
 
     public void onBindViewHolder(RecyclerAdapter.MyViewHolder holder, int position) {
+//        getting the original photo from the list
+        byte[] originalPhoto = places.get(position).getPhoto();
 
-        (holder).photo.setImageResource(places.get(position).getPhoto());
+//        converting the photo bytes to usable image
+        Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
+
+        (holder).photo.setImageBitmap(decodedPhoto);
         (holder).name.setText(places.get(position).getName());
         (holder).des.setText(places.get(position).getDes());
         (holder).selectedPlace = places.get(position);
@@ -76,5 +92,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     public int getItemCount() {
         return places.size();
     }
+
+
+
 }
+
+
 

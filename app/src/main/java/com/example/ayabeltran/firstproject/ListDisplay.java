@@ -12,6 +12,7 @@ public class ListDisplay extends AppCompatActivity {
     ImageView image;
     TextView name;
     TextView description;
+    dbhelper mydb;
 
 
     @Override
