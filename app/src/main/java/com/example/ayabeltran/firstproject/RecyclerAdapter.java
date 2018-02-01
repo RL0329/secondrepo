@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 /**
@@ -33,12 +35,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         this.context = context;
     }
 
+    public ArrayList<Place> getPlaces() {
+        return this.places;
+    }
 
 
     @Override
-    public RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mInflater = LayoutInflater.from(context);
-        View view = mInflater.inflate(R.layout.activity_list, parent, false);
+        View view = mInflater.inflate(R.layout.activity_list_display, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
@@ -48,16 +53,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
          TextView name;
          TextView des;
          ImageView photo;
-        Place selectedPlace;
+         Place selectedPlace;
 
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            photo = itemView.findViewById(R.id.displayimage);
-            name = itemView.findViewById(R.id.textname);
-            des = itemView.findViewById(R.id.textdetails);
+            this.photo = itemView.findViewById(R.id.displayimage);
+            this.name = itemView.findViewById(R.id.textname);
+            this.des = itemView.findViewById(R.id.textdetails);
 
 
 
@@ -75,19 +80,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         }
     }
 
-    public void onBindViewHolder(RecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 //        getting the original photo from the list
         byte[] originalPhoto = places.get(position).getPhoto();
 
 //        converting the photo bytes to usable image
         Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
 
-        (holder).photo.setImageBitmap(decodedPhoto);
-        (holder).name.setText(places.get(position).getName());
-        (holder).des.setText(places.get(position).getDes());
-        (holder).selectedPlace = places.get(position);
+        //holder.photo.setImageBitmap(decodedPhoto);
+        holder.name.setText(places.get(position).getName());
+        holder.des.setText(places.get(position).getDes());
+        holder.selectedPlace = places.get(position);
+        Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
+        Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
     }
-
 
     public int getItemCount() {
         return places.size();

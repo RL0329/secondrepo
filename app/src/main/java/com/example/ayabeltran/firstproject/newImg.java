@@ -13,11 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -98,6 +101,7 @@ public class newImg extends AppCompatActivity {
     public void AddImage(){
         // getting image from the image button
         Bitmap selectedImg = ((BitmapDrawable) btnimg.getDrawable()).getBitmap();
+        selectedImg = Bitmap.createScaledBitmap(selectedImg, selectedImg.getWidth() / 2, selectedImg.getHeight() / 2, true);
         String name = etnewimgname.getText().toString();
         String des = etdesc.getText().toString();
 
@@ -115,6 +119,7 @@ public class newImg extends AppCompatActivity {
 
         // allocating memory to store the image for byte conversion later
         ByteBuffer bb = ByteBuffer.allocate(selectedImg.getByteCount());
+
 
         // copying bitmap to allocated memory from ByteBuffer
         selectedImg.copyPixelsToBuffer(bb);

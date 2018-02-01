@@ -42,6 +42,10 @@ public class dbhelper extends SQLiteOpenHelper{
 
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
         db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
+
+
+        db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
+                "('enzo@enzo.com', 'nzo', 'nzo', 'Enzo', 'Sarmiento')");
     }
 
     @Override

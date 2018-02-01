@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ public class List extends AppCompatActivity {
 
 
         // adapter
-        RecyclerAdapter adapter = new RecyclerAdapter(places, this);
-        recyclerView.setAdapter(adapter);
+        recyclerAdapter = new RecyclerAdapter(places, this);
+        recyclerView.setAdapter(recyclerAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -51,6 +52,7 @@ public class List extends AppCompatActivity {
         mydb = new dbhelper(this);
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
+        Log.d("Rows", cursor.getCount() + "");
 
 
         if(cursor.moveToFirst()){
@@ -59,15 +61,13 @@ public class List extends AppCompatActivity {
                 String name, des;
                 byte [] photo;
 
-                id = cursor.getInt(0);
-                photo = cursor.getBlob(1);
-                name = cursor.getString(2);
-                des = cursor.getString(3);
-
-
+                id = cursor.getInt(cursor.getColumnIndex("id"));
+                photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+                name = cursor.getString(cursor.getColumnIndex("name"));
+                des = cursor.getString(cursor.getColumnIndex("des"));
 
                 Place places = new Place(id, photo, name, des);
-                this.places.add(places);
+                recyclerAdapter.getPlaces().add(places);
                 recyclerAdapter.notifyDataSetChanged();
             }
             while (cursor.moveToNext());
