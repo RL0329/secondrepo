@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.ayabeltran.firstproject.newImg">
 
+    <ImageView
+        android:id="@+id/btnImg"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignEnd="@+id/etNewimgname"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/etNewimgname"
+        android:layout_marginTop="36dp"
+        android:contentDescription="@string/insert_img"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+
     <EditText
         android:id="@+id/etNewimgname"
         android:layout_width="wrap_content"
@@ -32,16 +44,16 @@
         android:singleLine="false"
         android:textAlignment="center" />
 
-    <ImageButton
-        android:id="@+id/btnImg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_alignEnd="@+id/etNewimgname"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/etNewimgname"
-        android:layout_marginTop="36dp"
-        android:contentDescription="@string/insert_img"
-        app:srcCompat="@android:drawable/ic_input_add" />
+    <!--<ImageButton-->
+        <!--android:id="@+id/btnImg"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_alignEnd="@+id/etNewimgname"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignStart="@+id/etNewimgname"-->
+        <!--android:layout_marginTop="36dp"-->
+        <!--android:contentDescription="@string/insert_img"-->
+        <!--app:srcCompat="@android:drawable/ic_input_add" />-->
 
     <Button
         android:id="@+id/btnAddimg"
@@ -52,5 +64,6 @@
         android:layout_marginEnd="61dp"
         android:layout_marginTop="12dp"
         android:text="@string/add_img" />
+
 
 </android.widget.RelativeLayout>
