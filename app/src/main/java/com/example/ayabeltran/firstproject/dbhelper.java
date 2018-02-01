@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Lorenzo11 on 29/01/2018.
@@ -40,6 +42,10 @@ public class dbhelper extends SQLiteOpenHelper{
 
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
         db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
+
+
+        db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
+                "('enzo@enzo.com', 'nzo', 'nzo', 'Enzo', 'Sarmiento')");
     }
 
     @Override
@@ -84,5 +90,13 @@ public class dbhelper extends SQLiteOpenHelper{
         return cursor;
     }
 
+
+    public Cursor itemslisted (SQLiteDatabase db) {
+        String items = "select * from imgTable";
+        Log.d("items", items);
+        Cursor cursor = db.rawQuery(items, null);
+
+        return cursor;
+    }
 
 }

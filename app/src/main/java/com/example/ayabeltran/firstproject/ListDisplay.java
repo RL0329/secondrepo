@@ -1,15 +1,21 @@
 package com.example.ayabeltran.firstproject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class ListDisplay extends AppCompatActivity {
 
-    ImageButton image;
-    EditText name;
-    EditText description;
+    ImageView image;
+    TextView name;
+    TextView description;
 
 
     @Override
@@ -18,10 +24,21 @@ public class ListDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_list_display);
 
         image = findViewById(R.id.displayimage);
-        name = findViewById(R.id.editname);
-        description = findViewById(R.id.editdetails);
+        name = findViewById(R.id.textname);
+        description = findViewById(R.id.textdetails);
 
 
+        Bundle extra = getIntent().getExtras();
+        String  Key = extra.getString("Key");
+        String  Key2 = extra.getString("Key2");
+        byte[]  Key3 = extra.getByteArray("Key3");
+
+
+
+        name.setText(Key);
+        description.setText(Key2);
+        Bitmap bm = BitmapFactory.decodeByteArray(Key3, 0, Key3.length);
+        image.setImageBitmap(bm);
 
 
     }

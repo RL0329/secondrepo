@@ -7,11 +7,11 @@ package com.example.ayabeltran.firstproject;
 public class Place {
 
     private int id;
-    private int photo;
+    private byte[] photo;
     private String name;
     private String des;
 
-    public Place(int id, int photo, String name, String des) {
+    public Place(int id, byte[] photo, String name, String des) {
 
         this.id = id;
         this.photo = photo;
@@ -27,11 +27,11 @@ public class Place {
         this.id = id;
     }
 
-    public int getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(int photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
