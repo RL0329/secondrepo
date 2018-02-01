@@ -26,6 +26,13 @@ public class List extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
 
 
+        RecyclerAdapter adapter = new RecyclerAdapter(places,this);
+        recyclerView.setAdapter(adapter);
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override

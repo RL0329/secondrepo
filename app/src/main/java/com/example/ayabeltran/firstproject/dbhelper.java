@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by Lorenzo11 on 29/01/2018.
@@ -84,5 +86,14 @@ public class dbhelper extends SQLiteOpenHelper{
         return cursor;
     }
 
+
+    public Cursor itemslisted (byte[] photo, String name, String des, SQLiteDatabase db) {
+        String items = "select * from imgTable where photo ='" + photo + "' and name ='" + name + "' and des ='" + des + "'";
+        Log.d("items", items);
+        Cursor cursor = db.rawQuery(items, null);
+
+
+        return cursor;
+    }
 
 }
