@@ -9,5 +9,6 @@
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="title_activity_create_user">create_user</string>
+    <string name="welcome">Welcome</string>
 
 </resources>

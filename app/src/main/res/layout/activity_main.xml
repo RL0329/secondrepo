@@ -31,8 +31,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp"
-        android:textSize="50dp"
-        android:text="Welcome" />
+        android:textSize="50sp"
+        android:text="@string/welcome" />
 
 </android.widget.RelativeLayout>
 
