@@ -92,7 +92,6 @@ public class dbhelper extends SQLiteOpenHelper{
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
 
-
         return cursor;
     }
 

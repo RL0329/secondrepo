@@ -17,6 +17,8 @@ public class List extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Place> places = new ArrayList<>();
 
+    dbhelper mydb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +27,13 @@ public class List extends AppCompatActivity {
         add = findViewById(R.id.btnadd);
         recyclerView = findViewById(R.id.recyclerview);
 
-
+        mydb = new dbhelper(this);
         RecyclerAdapter adapter = new RecyclerAdapter(places,this);
         recyclerView.setAdapter(adapter);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
+
 
 
 
