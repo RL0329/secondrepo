@@ -32,20 +32,20 @@ public class dbhelper extends SQLiteOpenHelper{
 
 
     public dbhelper(Context context) {
+        //creates the database//
         super(context, dbname, null, 3);
-        Log.d("database", "db created");
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("database", "table created");
-
+        // creates the tables //
         db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
         db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
 
-
+        // inserts a default user into the db //
         db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
-                "('enzo@enzo.com', 'nzo', 'nzo', 'Enzo', 'Sarmiento')");
+                "('enzo@enzo.com', 'nzo', '111', 'Enzo', 'Sarmiento')");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class dbhelper extends SQLiteOpenHelper{
         db.execSQL("drop table if exists " + Tname2);
         onCreate(db);
     }
-
+        // method that inserts values into the userdetails table //
     public boolean adduser(String email, String uname, String pword, String fname, String lname) {
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -69,7 +69,7 @@ public class dbhelper extends SQLiteOpenHelper{
         else
             return true;
     }
-
+        // method that inserts values into the imgtable table //
     public boolean addimg(byte[] photo, String name, String des){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -82,7 +82,7 @@ public class dbhelper extends SQLiteOpenHelper{
         else
             return true;
     }
-
+        // method that looks for matching usernames and passwords //
     public Cursor userlogin(String loginame, String loginpword, SQLiteDatabase db){
         String query = "select * from loginDetails where uname = '"+loginame+"' and pword = '"+loginpword+"'";
         Log.d("query", query);
@@ -90,12 +90,11 @@ public class dbhelper extends SQLiteOpenHelper{
         return cursor;
     }
 
-
+        // method that calls all the contents of the imgtable //
     public Cursor itemslisted (SQLiteDatabase db) {
         String items = "select * from imgTable";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
-
         return cursor;
     }
 

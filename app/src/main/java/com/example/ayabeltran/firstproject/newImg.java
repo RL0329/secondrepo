@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -116,6 +118,20 @@ public class newImg extends AppCompatActivity {
             etdesc.requestFocus();
             return;
         }
+
+
+        ////tryinng this////
+
+//        File f = new File(getFilesDir().getAbsolutePath(), name + " " + des ".jpg");
+//        FileOutputStream outputFile;
+//
+//        try {
+//            outputFile = new FileOutputStream(f);
+//            selectedImg.compress(Bitmap.CompressFormat.JPEG, 50, outputFile);
+//
+//        } catch (Exception e) {
+//
+//        }
 
         // allocating memory to store the image for byte conversion later
         ByteBuffer bb = ByteBuffer.allocate(selectedImg.getByteCount());
