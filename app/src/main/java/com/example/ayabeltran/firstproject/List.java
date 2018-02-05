@@ -57,6 +57,7 @@ public class List extends AppCompatActivity {
                 String name, des;
                 byte [] photo;
 
+
                 id = cursor.getInt(cursor.getColumnIndex("id"));
                 photo = cursor.getBlob(cursor.getColumnIndex("photo"));
                 name = cursor.getString(cursor.getColumnIndex("name"));

@@ -78,17 +78,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        getting the original photo from the list
-        byte[] originalPhoto = places.get(position).getPhoto();
+            byte[] originalPhoto = places.get(position).getPhoto();
 
 //        converting the photo bytes to usable image
-        Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
 
-        //holder.photo.setImageBitmap(decodedPhoto);
+
+       Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
+
+      // holder.photo.setImageBitmap(decodedPhoto);
         holder.name.setText(places.get(position).getName());
         holder.des.setText(places.get(position).getDes());
         holder.selectedPlace = places.get(position);
         Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
-        Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
     }
 
     public int getItemCount() {
