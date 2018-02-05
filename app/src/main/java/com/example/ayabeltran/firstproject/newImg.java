@@ -120,7 +120,7 @@ public class newImg extends AppCompatActivity {
         }
 
 
-        ////tryinng this////
+        ////trying this////
 
 //        File f = new File(getFilesDir().getAbsolutePath(), name + " " + des ".jpg");
 //        FileOutputStream outputFile;

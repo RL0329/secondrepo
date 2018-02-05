@@ -45,7 +45,7 @@ public class dbhelper extends SQLiteOpenHelper{
 
         // inserts a default user into the db //
         db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
-                "('enzo@enzo.com', 'nzo', '111', 'Enzo', 'Sarmiento')");
+                "('test@test.com', 'test', '111', 'test', 'test')");
     }
 
     @Override
