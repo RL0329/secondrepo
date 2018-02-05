@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     private LayoutInflater mInflater;
     private ArrayList<Place> places = new ArrayList<>();
     private Context context;
+
 
 
 
@@ -77,12 +80,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
+
+
 //        getting the original photo from the list
+
         byte[] originalPhoto = places.get(position).getPhoto();
 
 //        converting the photo bytes to usable image
         Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
 
+<<<<<<< HEAD
 
 
 //       holder.photo.setImageBitmap(decodedPhoto);
@@ -91,7 +99,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         holder.selectedPlace = places.get(position);
 
        Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
+=======
+        holder.photo.setImageBitmap(decodedPhoto);
+        holder.name.setText(places.get(position).getName());
+        holder.des.setText(places.get(position).getDes());
+        holder.selectedPlace = places.get(position);
+        Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
+>>>>>>> b477f71c272b309209affd6213741fb79b12e492
         Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
+
+
     }
 
     public int getItemCount() {
