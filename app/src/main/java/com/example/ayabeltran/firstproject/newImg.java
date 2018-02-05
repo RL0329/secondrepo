@@ -137,8 +137,8 @@ public class newImg extends AppCompatActivity {
 
     public void AddImage(){
         // getting image from the image button
-        Bitmap selectedImg = ((BitmapDrawable) btnimg.getDrawable()).getBitmap();
-        selectedImg = Bitmap.createScaledBitmap(selectedImg, selectedImg.getWidth() / 2, selectedImg.getHeight() / 2, true);
+//        Bitmap selectedImg = ((BitmapDrawable) btnimg.getDrawable()).getBitmap();
+//        selectedImg = Bitmap.createScaledBitmap(selectedImg, selectedImg.getWidth() / 2, selectedImg.getHeight() / 2, true);
         String name = etnewimgname.getText().toString();
         String des = etdesc.getText().toString();
 
