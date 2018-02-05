@@ -96,6 +96,7 @@ public class newImg extends AppCompatActivity {
             }
             catch (Exception e){
                 e.printStackTrace();
+                Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
             }
         }
     }
