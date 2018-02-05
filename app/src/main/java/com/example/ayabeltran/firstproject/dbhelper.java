@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class dbhelper extends SQLiteOpenHelper{
 
-        public static final String dbname = "task1_3rd.db";
+        public static final String dbname = "task1_4th.db";
         public static final String Tname = "loginDetails";
         public static final String Tname2 = "imgTable";
         public static final String col1 ="id";
@@ -33,7 +33,7 @@ public class dbhelper extends SQLiteOpenHelper{
 
     public dbhelper(Context context) {
         //creates the database//
-        super(context, dbname, null, 3);
+        super(context, dbname, null, 4);
 
     }
 
