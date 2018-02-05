@@ -32,6 +32,7 @@ public class Place {
     }
 
     public void setPhoto(byte[] photo) {
+
         this.photo = photo;
     }
 
