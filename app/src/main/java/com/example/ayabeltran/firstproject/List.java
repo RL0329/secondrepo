@@ -50,6 +50,8 @@ public class List extends AppCompatActivity {
         cursor = mydb.itemslisted(sqLiteDatabase);
         Log.d("Rows", cursor.getCount() + "");
 
+        if(cursor.getCount() != 0)
+            return;
 
         if(cursor.moveToFirst()){
             do {

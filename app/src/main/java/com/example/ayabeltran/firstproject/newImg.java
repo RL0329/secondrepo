@@ -111,9 +111,9 @@ public class newImg extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
             }
         }
-        if (requestCode == CAPTURE_IMAGE && resultCode == RESULT_OK && data != null) {
-            selectedimage = data.getData();
-        }
+//        if (requestCode == CAPTURE_IMAGE && resultCode == RESULT_OK && data != null) {
+//            selectedimage = data.getData();
+//        }
     }
 
 

@@ -80,9 +80,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
-
-
 //        getting the original photo from the list
 
         byte[] originalPhoto = places.get(position).getPhoto();
