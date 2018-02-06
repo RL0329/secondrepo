@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ayabeltran.firstproject.newImg">
+    tools:context="com.example.ayabeltran.firstproject.newImg"
+    android:background="#FFF9C4"
+    >
 
     <ImageView
         android:id="@+id/btnImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="275dp"
+        android:layout_height="275dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="@string/insert_img"
+        app:layout_constraintBottom_toTopOf="@+id/etNewimgname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 
@@ -23,46 +30,48 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnImg"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/etDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etDesc"
-        android:layout_width="wrap_content"
+        android:layout_width="359dp"
         android:layout_height="100dp"
         android:layout_alignStart="@+id/etNewimgname"
         android:layout_alignTop="@+id/etNewimgname"
-        android:layout_marginTop="74dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="@string/description"
         android:inputType="textMultiLine"
         android:selectAllOnFocus="false"
         android:singleLine="false"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddimg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!--<ImageButton-->
-        <!--android:id="@+id/btnImg"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_alignEnd="@+id/etNewimgname"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignStart="@+id/etNewimgname"-->
-        <!--android:layout_marginTop="36dp"-->
-        <!--android:contentDescription="@string/insert_img"-->
-        <!--app:srcCompat="@android:drawable/ic_input_add" />-->
 
     <Button
         android:id="@+id/btnAddimg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="392dp"
+        android:layout_height="45dp"
         android:layout_alignEnd="@+id/etDesc"
         android:layout_below="@+id/etDesc"
-        android:layout_marginEnd="61dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/add_img" />
+        android:background="#FFEB3B"
+        android:text="@string/add_img"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-</android.widget.RelativeLayout>
+</android.support.constraint.ConstraintLayout>
