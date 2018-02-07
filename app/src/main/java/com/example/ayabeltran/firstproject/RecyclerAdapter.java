@@ -90,22 +90,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
 //        converting the photo bytes to usable image
         Bitmap decodedPhoto = BitmapFactory.decodeByteArray(originalPhoto, 0, originalPhoto.length);
 
-<<<<<<< HEAD
 
 
-//       holder.photo.setImageBitmap(decodedPhoto);
+
+      holder.photo.setImageBitmap(decodedPhoto);
         holder.name.setText(places.get(position).getName());
         holder.des.setText(places.get(position).getDes());
         holder.selectedPlace = places.get(position);
 
        Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
-=======
+
         holder.photo.setImageBitmap(decodedPhoto);
         holder.name.setText(places.get(position).getName());
         holder.des.setText(places.get(position).getDes());
         holder.selectedPlace = places.get(position);
         Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
->>>>>>> b477f71c272b309209affd6213741fb79b12e492
+
         Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
 
 
