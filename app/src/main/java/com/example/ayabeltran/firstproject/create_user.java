@@ -19,7 +19,9 @@ public class create_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        mydb = ((DBApp)getApplication()).getDatabase();
+
+        mydb = new dbhelper(this);
+//        mydb = ((DBApp)getApplication()).getDatabase();
 
         etemail = findViewById(R.id.etEmail);
         etuname = findViewById(R.id.etUname);

@@ -1,5 +1,4 @@
 package com.example.ayabeltran.firstproject;
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,12 +6,14 @@ import android.view.View;
 import android.widget.Button;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
     dbhelper mydb;
-
     Button btnreg1;
     Button Login;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public void moveTo(){
         btnreg1 = findViewById(R.id.btnReg1);
         Login = findViewById(R.id.btnLogin);
+
 
         //on clicks
 

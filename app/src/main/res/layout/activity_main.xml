@@ -11,7 +11,7 @@
     <Button
         android:id="@+id/btnLogin"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="394dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="#FFF176"
@@ -24,7 +24,7 @@
     <Button
         android:id="@+id/btnReg1"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="418dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFEB3B"
         android:text="@string/register"
@@ -46,15 +46,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivLogo"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/knuckles"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcom"
-        app:srcCompat="@drawable/pinterest" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcom" />
 
 </android.support.constraint.ConstraintLayout>
 
