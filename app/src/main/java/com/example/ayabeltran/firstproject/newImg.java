@@ -36,8 +36,8 @@ public class newImg extends AppCompatActivity {
     EditText etnewimgname, etdesc;
     ImageView btnimg;
     Button btnaddimg;
-    private static int selectImg = 1;
-    private static int RESULT_IMAGE = 2;
+    private static int SELECT_IMAGE = 1;
+    private static int CAPTURE_IMAGE = 2 ;
     Uri selectedimage;
 
     @Override
@@ -57,9 +57,14 @@ public class newImg extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         ActivityCompat.requestPermissions(newImg.this,
                                 new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
-                                RESULT_IMAGE);
+                                SELECT_IMAGE);
+//                        ActivityCompat.requestPermissions(newImg.this,
+//                              new String[]{Manifest.permission.CAMERA},
+//                              CAPTURE_IMAGE);
+
                     }
                 }
         );
@@ -74,71 +79,45 @@ public class newImg extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == RESULT_IMAGE){
+        if(requestCode == SELECT_IMAGE){
             if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/");
-                startActivityForResult(intent, RESULT_IMAGE);
+                startActivityForResult(intent, SELECT_IMAGE);
             }
         }
+//        if (requestCode == CAPTURE_IMAGE) {
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Intent intent_capture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                intent_capture.setType("image/");
+//                startActivityForResult(intent_capture, CAPTURE_IMAGE);
+//            }
+//        }
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_IMAGE && resultCode == RESULT_OK && data!=null){
+        if (requestCode == SELECT_IMAGE && resultCode == RESULT_OK && data != null) {
             selectedimage = data.getData();
-            try{
+            try {
                 InputStream inputStream = getContentResolver().openInputStream(selectedimage);
                 Bitmap yourselectedimage = BitmapFactory.decodeStream(inputStream);
                 btnimg.setImageBitmap(yourselectedimage);
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(),"Hello", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-//
-//    public  void SelectImage(){
-////        Intent i =  new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-////
-////        startActivityForResult(i, selectImg);
-//        ActivityCompat.requestPermissions(newImg.this,
-//                new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
-//                selectImg);
-//
-//    }
-//
-//    // lowers api compatibility and checks is package managers permission is granted
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if(requestCode == selectImg){
-//            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//
-//                //if granted intent goes to designated activity result
-//                Intent i = new Intent(Intent.ACTION_PICK);
-//                i.setType("image/");
-//                startActivityForResult(i, selectImg);
-//            }
+//        if (requestCode == CAPTURE_IMAGE && resultCode == RESULT_OK && data != null) {
+//            selectedimage = data.getData();
 //        }
-//    }
-//
-//    @Override
-//            protected void onActivityResult(int requestcode, int resultcode, Intent data){
-//                super.onActivityResult(requestcode, resultcode, data);
-//
-//                if(requestcode == selectImg && resultcode == RESULT_OK && data != null){
-//                    Uri imgUri = data.getData();
-//                    btnimg.setImageURI(imgUri);
-//                }
-//            }
+    }
+
 
     public void AddImage(){
-        // getting image from the image button
-//        Bitmap selectedImg = ((BitmapDrawable) btnimg.getDrawable()).getBitmap();
-//        selectedImg = Bitmap.createScaledBitmap(selectedImg, selectedImg.getWidth() / 2, selectedImg.getHeight() / 2, true);
         String name = etnewimgname.getText().toString();
         String des = etdesc.getText().toString();
 
@@ -154,29 +133,6 @@ public class newImg extends AppCompatActivity {
             return;
         }
 
-
-        ////trying this////
-
-//        File f = new File(getFilesDir().getAbsolutePath(), name + " " + des ".jpg");
-//        FileOutputStream outputFile;
-//
-//        try {
-//            outputFile = new FileOutputStream(f);
-//            selectedImg.compress(Bitmap.CompressFormat.JPEG, 50, outputFile);
-//
-//        } catch (Exception e) {
-//
-//        }
-
-        // allocating memory to store the image for byte conversion later
-//        ByteBuffer bb = ByteBuffer.allocate(selectedImg.getByteCount());
-//
-//
-//        // copying bitmap to allocated memory from ByteBuffer
-//        selectedImg.copyPixelsToBuffer(bb);
-
-        // using byte array to store photo (since parameter needed is a byte[] array)
-        // byte[] photo = bb.array();
         byte [] data = getimagebyte(btnimg);
 
         mydb.addimg(data, name, des);

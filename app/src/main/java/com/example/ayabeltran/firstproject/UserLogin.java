@@ -24,7 +24,7 @@ public class UserLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        mydb = new dbhelper(this);
+        mydb =((DBApp)getApplication()).getDatabase();
 
         etloginame =  findViewById(R.id.etLoginUname);
         etloginpword = findViewById(R.id.etLoginPword);
@@ -38,7 +38,6 @@ public class UserLogin extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mydb = new dbhelper(UserLogin.this);
                         sqLiteDatabase = mydb.getReadableDatabase();
                         String loginame = etloginame.getText().toString();
                         String loginpword = etloginpword.getText().toString();

@@ -23,7 +23,7 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String col2 ="email";
         public static final String col3 ="uname";
         public static final String col4 ="pword";
-        public static final String col5 ="fname";
+    public static final String col5 ="fname";
         public static final String col6 ="lname";
         String t2col1 ="id",
                 t2col2="photo",
@@ -31,16 +31,25 @@ public class dbhelper extends SQLiteOpenHelper{
                 t2col4="des";
 
 
+    private SQLiteDatabase mWriteableDb;
+
     public dbhelper(Context context) {
         //creates the database//
         super(context, dbname, null, 4);
+        mWriteableDb = this.getWritableDatabase();
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creates the tables //
-        db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
+        db.execSQL("create table "+Tname+" ( " +
+                ""+col1+" integer primary key autoincrement, "
+                +col2+" text not null unique, "
+                +col3+" text not null unique, "
+                +col4+" text not null, "
+                +col5+" text not null, "
+                +col6+" text not null);");
         db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
 
         // inserts a default user into the db //
@@ -56,31 +65,35 @@ public class dbhelper extends SQLiteOpenHelper{
     }
         // method that inserts values into the userdetails table //
     public boolean adduser(String email, String uname, String pword, String fname, String lname) {
-        SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(col2, email);
         contentValues.put(col3, uname);
         contentValues.put(col4, pword);
         contentValues.put(col5, fname);
         contentValues.put(col6, lname);
-        long result = db.insert(Tname, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        long result = mWriteableDb.insert(Tname, null, contentValues);
+        return result != -1;
+    }
+
+    public boolean adduser(Person person) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(col2, person.getEmail());
+        contentValues.put(col3, person.getUname());
+        contentValues.put(col4, person.getPassword());
+        contentValues.put(col5, person.getFname());
+        contentValues.put(col6, person.getLname());
+        long result = mWriteableDb.insert(Tname, null, contentValues);
+        return result != -1;
     }
         // method that inserts values into the imgtable table //
     public boolean addimg(byte[] photo, String name, String des){
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(t2col2, photo);
         contentValues.put(t2col3, name);
         contentValues.put(t2col4, des);
-         long result = db.insert(Tname2, null, contentValues);
-         if(result == -1)
-             return false;
-        else
-            return true;
+         long result = mWriteableDb.insert(Tname2, null, contentValues);
+         return result != -1;
+
     }
         // method that looks for matching usernames and passwords //
     public Cursor userlogin(String loginame, String loginpword, SQLiteDatabase db){
