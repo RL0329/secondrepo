@@ -24,7 +24,9 @@ public class UserLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        mydb =((DBApp)getApplication()).getDatabase();
+        mydb= new dbhelper(this);
+//        mydb =((DBApp)getApplication()).getDatabase();
+
 
         etloginame =  findViewById(R.id.etLoginUname);
         etloginpword = findViewById(R.id.etLoginPword);

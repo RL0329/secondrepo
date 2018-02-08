@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ public class newImg extends AppCompatActivity {
     private static int SELECT_IMAGE = 1;
     private static int CAPTURE_IMAGE = 2 ;
     Uri selectedimage;
+    Bitmap camImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +60,43 @@ public class newImg extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        ActivityCompat.requestPermissions(newImg.this,
-                                new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
-                                SELECT_IMAGE);
+//                        ActivityCompat.requestPermissions(newImg.this,
+//                                new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
+//                                SELECT_IMAGE);
+
+                        AlertDialog.Builder mbuilder = new AlertDialog.Builder(newImg.this);
+                        View mview = getLayoutInflater().inflate(R.layout.dialog_add_image, null);
+                        Button mbtnUseCam = mview.findViewById(R.id.btnUseCam);
+                        Button mbtnUseGal = mview.findViewById(R.id.btnUseGal);
+                        mbuilder.setView(mview);
+                        final AlertDialog dialog = mbuilder.create();
+
+                        mbtnUseCam.setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+                                                              Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                                              startActivityForResult(i, CAPTURE_IMAGE);
+                                                              dialog.dismiss();
+                                                          }
+                                                      }
+                        );
+
+                        mbtnUseGal.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(newImg.this,
+                                        new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        SELECT_IMAGE);
+                                dialog.dismiss();
+                            }
+                        });
+
 //                        ActivityCompat.requestPermissions(newImg.this,
 //                              new String[]{Manifest.permission.CAMERA},
 //                              CAPTURE_IMAGE);
+
+
+                        dialog.show();
 
                     }
                 }
@@ -111,9 +144,16 @@ public class newImg extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
             }
         }
-//        if (requestCode == CAPTURE_IMAGE && resultCode == RESULT_OK && data != null) {
-//            selectedimage = data.getData();
-//        }
+        if (requestCode == CAPTURE_IMAGE && resultCode == RESULT_OK && data != null) {
+            camImg =(Bitmap) data.getExtras().get("data");
+            try {
+                btnimg.setImageBitmap(camImg);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
@@ -145,6 +185,8 @@ public class newImg extends AppCompatActivity {
         etnewimgname.setText("");
         etdesc.setText("");
     }
+
+
     public static byte[] getimagebyte (ImageView imageView){
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
