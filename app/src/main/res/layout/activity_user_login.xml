@@ -8,18 +8,41 @@
     android:background="#FFF9C4"
     tools:context="com.example.ayabeltran.firstproject.UserLogin">
 
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/framelayout">
+
     <EditText
         android:id="@+id/etLoginUname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="150dp"
         android:ems="10"
         android:hint="@string/username"
         android:inputType="textPersonName"
+        android:layout_gravity="bottom|center"
         app:layout_constraintBottom_toTopOf="@+id/etLoginPword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnclear"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="85dp"
+        android:layout_marginBottom="150dp"
+        android:background="@mipmap/ic_delete"
+
+        />
+
+</FrameLayout>
+
+
+
 
     <EditText
         android:id="@+id/etLoginPword"
@@ -51,7 +74,6 @@
         android:layout_height="275dp"
         android:layout_marginBottom="32dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/etLoginUname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
