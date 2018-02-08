@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 public class UserLogin extends AppCompatActivity {
 
     dbhelper mydb;
+    Button clear;
 
     public static EditText etloginame, etloginpword;
     Button btn_login;
@@ -29,11 +32,43 @@ public class UserLogin extends AppCompatActivity {
         etloginame =  findViewById(R.id.etLoginUname);
         etloginpword = findViewById(R.id.etLoginPword);
         btn_login = findViewById(R.id.btn_Login);
+        clear = findViewById(R.id.btnclear);
 
         login();
+        btnClear();
     }
+public  void btnClear(){
 
-    public void login(){
+    clear.setVisibility(View.GONE);
+    etloginame.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if(charSequence.length() > 0){
+                clear.setVisibility(View.VISIBLE);
+            }else{
+                clear.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    });
+    clear.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            etloginame.setText("");
+        }
+    });
+}
+
+public void login(){
         btn_login.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
