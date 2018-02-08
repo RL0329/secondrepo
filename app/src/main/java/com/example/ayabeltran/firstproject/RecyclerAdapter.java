@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-
-import java.io.InputStream;
 import java.util.ArrayList;
+
+
 
 /**
  * Created by ayabeltran on 01/02/2018.
@@ -32,6 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     public RecyclerAdapter(ArrayList<Place> places, Context context) {
         this.places = places;
         this.context = context;
+
     }
 
     public ArrayList<Place> getPlaces() {
@@ -98,12 +100,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
 
 
-    }
+        }
+
+
 
     public int getItemCount() {
         return places.size();
     }
-
 
 
 }
