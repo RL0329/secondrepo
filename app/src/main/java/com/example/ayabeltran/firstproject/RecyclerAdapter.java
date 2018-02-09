@@ -26,9 +26,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     private ArrayList<Place> places = new ArrayList<>();
     private Context context;
 
-
-
-
     public RecyclerAdapter(ArrayList<Place> places, Context context) {
         this.places = places;
         this.context = context;
@@ -37,7 +34,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     public ArrayList<Place> getPlaces() {
         return this.places;
     }
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,16 +50,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
          ImageView photo;
          Place selectedPlace;
 
-
-
         public MyViewHolder(View itemView) {
             super(itemView);
 
             this.photo = itemView.findViewById(R.id.displayimage);
             this.name = itemView.findViewById(R.id.textname);
             this.des = itemView.findViewById(R.id.textdetails);
-
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,18 +65,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
                     preview.putExtra("Key2", selectedPlace.getDes());
                     preview.putExtra("Key3", selectedPlace.getPhoto());
                     context.startActivity(preview);
-
                 }
             });
         }
     }
-
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-
-
 //        getting the original photo from the list
-
         byte[] originalPhoto = places.get(position).getPhoto();
 
 //        converting the photo bytes to usable image
@@ -96,16 +83,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         holder.selectedPlace = places.get(position);
         Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
         Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
-
-
     }
 
     public int getItemCount() {
         return places.size();
     }
-
-
-
 }
 
 

@@ -16,16 +16,15 @@ import java.util.ArrayList;
 
 public class List extends AppCompatActivity {
 
+
+    private RecyclerView.LayoutManager mLayoutManager;
     Button Add;
     RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<Place> places = new ArrayList<>();
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     RecyclerAdapter recyclerAdapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +34,12 @@ public class List extends AppCompatActivity {
         Add = findViewById(R.id.btnadd);
         recyclerView = findViewById(R.id.recyclerview);
 
-
-
         // adapter
         recyclerAdapter = new RecyclerAdapter(places, this);
         recyclerView.setAdapter(recyclerAdapter);
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
-
 
         mydb = new dbhelper(this);
         sqLiteDatabase = mydb.getReadableDatabase();
@@ -68,8 +64,6 @@ public class List extends AppCompatActivity {
             }
             while (cursor.moveToNext());
         }
-
-
 
         Add.setOnClickListener(new View.OnClickListener() {
             @Override

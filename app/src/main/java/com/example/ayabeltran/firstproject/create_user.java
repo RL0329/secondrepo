@@ -11,15 +11,15 @@ import android.widget.Toast;
 public class create_user extends AppCompatActivity {
 
     dbhelper mydb;
-
-    EditText etemail,
-            etuname,
-            etpword,
-            etcpword,
-            etfname,
-            etlname;
-
     Button btnreg2;
+    EditText etemail,
+             etuname,
+             etpword,
+             etcpword,
+             etfname,
+             etlname;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,7 @@ public class create_user extends AppCompatActivity {
                         AddUser();
                     }
                 });
-
     }
-
-
-
     public void AddUser(){
         String Nemail = etemail.getText().toString(),
                 Nuname = etuname.getText().toString(),

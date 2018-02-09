@@ -16,7 +16,6 @@ import android.widget.Toast;
 public class UserLogin extends AppCompatActivity {
 
     dbhelper mydb;
-    Button clear;
 
     public static EditText etloginame, etloginpword;
     Button btn_login;
@@ -33,11 +32,10 @@ public class UserLogin extends AppCompatActivity {
         etloginpword = findViewById(R.id.etLoginPword);
         btn_login = findViewById(R.id.btn_Login);
 
-
         login();
     }
 
-public void login(){
+    public void login(){
         btn_login.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

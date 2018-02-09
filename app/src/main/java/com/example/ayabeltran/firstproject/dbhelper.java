@@ -25,23 +25,33 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String col4 ="pword";
         public static final String col5 ="fname";
         public static final String col6 ="lname";
-        String t2col1 ="id",
-                t2col2="photo",
-                t2col3="name",
-                t2col4="des";
+        public static final String t2col1 ="id",
+                                    t2col2="photo",
+                                    t2col3="name",
+                                    t2col4="des";
 
 
     public dbhelper(Context context) {
         //creates the database//
         super(context, dbname, null, 4);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creates the tables //
-        db.execSQL("create table "+Tname+" ( "+col1+" integer primary key autoincrement, "+col2+" text not null unique, "+col3+" text not null unique, "+col4+" text not null, "+col5+" text not null, "+col6+" text not null);");
-        db.execSQL("create table "+Tname2+" ("+t2col1+" integer primary key autoincrement, "+t2col2+" blob not null, "+t2col3+" text not null, "+t2col4+" text not null);");
+        db.execSQL("create table "+Tname+" ( "
+                +col1+" integer primary key autoincrement, "
+                +col2+" text not null unique, "
+                +col3+" text not null unique, "
+                +col4+" text not null, "
+                +col5+" text not null, "
+                +col6+" text not null);");
+
+        db.execSQL("create table "+Tname2+" ("
+                +t2col1+" integer primary key autoincrement, "
+                +t2col2+" blob not null, "
+                +t2col3+" text not null, "
+                +t2col4+" text not null);");
 
         // inserts a default user into the db //
         db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
@@ -89,7 +99,6 @@ public class dbhelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
-
         // method that calls all the contents of the imgtable //
     public Cursor itemslisted (SQLiteDatabase db) {
         String items = "select * from imgTable";
@@ -97,5 +106,4 @@ public class dbhelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
     }
-
 }
