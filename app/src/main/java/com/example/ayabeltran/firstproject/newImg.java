@@ -60,10 +60,6 @@ public class newImg extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-//                        ActivityCompat.requestPermissions(newImg.this,
-//                                new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
-//                                SELECT_IMAGE);
-
                         AlertDialog.Builder mbuilder = new AlertDialog.Builder(newImg.this);
                         View mview = getLayoutInflater().inflate(R.layout.dialog_add_image, null);
                         Button mbtnUseCam = mview.findViewById(R.id.btnUseCam);
@@ -78,8 +74,7 @@ public class newImg extends AppCompatActivity {
                                 startActivityForResult(i, CAPTURE_IMAGE);
                                 dialog.dismiss();
                             }
-                        }
-                        );
+                        });
 
                         mbtnUseGal.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -90,10 +85,6 @@ public class newImg extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-
-//                        ActivityCompat.requestPermissions(newImg.this,
-//                              new String[]{Manifest.permission.CAMERA},
-//                              CAPTURE_IMAGE);
 
 
                         dialog.show();
@@ -119,14 +110,6 @@ public class newImg extends AppCompatActivity {
                 startActivityForResult(intent, SELECT_IMAGE);
             }
         }
-//        if (requestCode == CAPTURE_IMAGE) {
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Intent intent_capture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                intent_capture.setType("image/");
-//                startActivityForResult(intent_capture, CAPTURE_IMAGE);
-//            }
-//        }
-
     }
 
     @Override
@@ -160,6 +143,9 @@ public class newImg extends AppCompatActivity {
     public void AddImage(){
         String name = etnewimgname.getText().toString();
         String des = etdesc.getText().toString();
+        byte [] data = getimagebyte(btnimg);
+
+
 
         if (name.isEmpty()){
             Toast.makeText(newImg.this, "please enter an image name.", Toast.LENGTH_SHORT).show();
@@ -172,8 +158,6 @@ public class newImg extends AppCompatActivity {
             etdesc.requestFocus();
             return;
         }
-
-        byte [] data = getimagebyte(btnimg);
 
         mydb.addimg(data, name, des);
 
