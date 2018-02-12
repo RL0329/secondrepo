@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -34,16 +35,11 @@ public class newImg extends AppCompatActivity {
 
     dbhelper mydb;
 
-    EditText etnewimgname,
-             etdesc;
-
+    EditText etnewimgname, etdesc;
     ImageView btnimg;
-
     Button btnaddimg;
-
-    private static int SELECT_IMAGE = 1,
-                       CAPTURE_IMAGE = 2;
-
+    private static int SELECT_IMAGE = 1;
+    private static int CAPTURE_IMAGE = 2 ;
     Uri selectedimage;
     Bitmap camImg;
 
@@ -59,11 +55,41 @@ public class newImg extends AppCompatActivity {
         btnimg = findViewById(R.id.btnImg);
         btnaddimg = findViewById(R.id.btnAddimg);
 
+
         btnimg.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addImageDialog();
+
+                        AlertDialog.Builder mbuilder = new AlertDialog.Builder(newImg.this);
+                        View mview = getLayoutInflater().inflate(R.layout.dialog_add_image, null);
+                        Button mbtnUseCam = mview.findViewById(R.id.btnUseCam);
+                        Button mbtnUseGal = mview.findViewById(R.id.btnUseGal);
+                        mbuilder.setView(mview);
+                        final AlertDialog dialog = mbuilder.create();
+
+                        mbtnUseCam.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(i, CAPTURE_IMAGE);
+                                dialog.dismiss();
+                            }
+                        });
+
+                        mbtnUseGal.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(newImg.this,
+                                new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
+                                SELECT_IMAGE);
+                                dialog.dismiss();
+                            }
+                        });
+
+
+                        dialog.show();
+
                     }
                 }
         );
@@ -114,39 +140,13 @@ public class newImg extends AppCompatActivity {
         }
     }
 
-    public void addImageDialog(){
-
-        AlertDialog.Builder mbuilder = new AlertDialog.Builder(newImg.this);
-        View mview = getLayoutInflater().inflate(R.layout.dialog_add_image, null);
-        Button mbtnUseCam = mview.findViewById(R.id.btnUseCam);
-        Button mbtnUseGal = mview.findViewById(R.id.btnUseGal);
-        mbuilder.setView(mview);
-        final AlertDialog dialog = mbuilder.create();
-
-        mbtnUseCam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i, CAPTURE_IMAGE);
-                dialog.dismiss();
-            }
-        });
-        mbtnUseGal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions(newImg.this,
-                        new String [] {Manifest.permission.READ_EXTERNAL_STORAGE},
-                        SELECT_IMAGE);
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
 
     public void AddImage(){
-        String name = etnewimgname.getText().toString();
-        String des = etdesc.getText().toString();
-        byte [] data = getimagebyte(btnimg);
+        final String name = etnewimgname.getText().toString();
+        final String des = etdesc.getText().toString();
+        final byte [] data = getimagebyte(btnimg);
+
+
 
         if (name.isEmpty()){
             Toast.makeText(newImg.this, "please enter an image name.", Toast.LENGTH_SHORT).show();
@@ -160,15 +160,23 @@ public class newImg extends AppCompatActivity {
             return;
         }
 
-        mydb.addimg(data, name, des);
+//        Handler h = new Handler();
+//        h.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 3000);
 
         Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
+        mydb.addimg(data, name, des);
         Intent uploaded = new Intent(newImg.this, List.class);
         startActivity(uploaded);
         etnewimgname.setText("");
         etdesc.setText("");
     }
+
 
     public static byte[] getimagebyte (ImageView imageView){
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
@@ -177,4 +185,5 @@ public class newImg extends AppCompatActivity {
         byte [] bytearray = stream.toByteArray();
         return bytearray;
     }
+
 }
