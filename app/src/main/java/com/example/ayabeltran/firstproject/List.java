@@ -1,6 +1,5 @@
 package com.example.ayabeltran.firstproject;
 
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 
 
 public class List extends AppCompatActivity {
-
 
     private RecyclerView.LayoutManager mLayoutManager;
     Button Add;
@@ -74,9 +72,6 @@ public class List extends AppCompatActivity {
             }
         });
     }
-
-
-
 }
 
 

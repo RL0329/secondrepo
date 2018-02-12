@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mydb = new dbhelper(this);
-        moveTo();
+        logIn();
     }
-    public void moveTo(){
+    public void logIn(){
         btnreg1 = findViewById(R.id.btnReg1);
         Login = findViewById(R.id.btnLogin);
 

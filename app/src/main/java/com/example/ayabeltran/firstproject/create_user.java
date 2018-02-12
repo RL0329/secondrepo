@@ -20,7 +20,6 @@ public class create_user extends AppCompatActivity {
              etlname;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
