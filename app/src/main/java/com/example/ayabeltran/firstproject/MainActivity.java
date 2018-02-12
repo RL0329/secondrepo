@@ -10,7 +10,6 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     dbhelper mydb;
-
     Button btnreg1;
     Button Login;
 
@@ -19,15 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mydb = new dbhelper(this);
-        moveTo();
+        logIn();
     }
-
-    public void moveTo(){
+    public void logIn(){
         btnreg1 = findViewById(R.id.btnReg1);
         Login = findViewById(R.id.btnLogin);
 
         //on clicks
-
         btnreg1.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -35,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this,create_user.class);
                         startActivity(intent);
                     }
-                });
-
+                }
+        );
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +41,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(movetoLogin);
             }
         });
-
     }
 }
