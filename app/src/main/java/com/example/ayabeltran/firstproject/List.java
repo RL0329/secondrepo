@@ -4,6 +4,8 @@ package com.example.ayabeltran.firstproject;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +18,18 @@ import java.util.ArrayList;
 
 public class List extends AppCompatActivity {
 
+    //widgets
     Button Add;
     RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    ArrayList<Place> places = new ArrayList<>();
+    SwipeRefreshLayout mswipeRefreshLayout;
+
+
+    ArrayList<Place> places = new ArrayList();
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     RecyclerAdapter recyclerAdapter;
-
 
 
     @Override
@@ -34,7 +39,7 @@ public class List extends AppCompatActivity {
 
         Add = findViewById(R.id.btnadd);
         recyclerView = findViewById(R.id.recyclerview);
-
+        mswipeRefreshLayout = findViewById(R.id.swiperefresh);
 
 
         // adapter
@@ -48,14 +53,16 @@ public class List extends AppCompatActivity {
         mydb = new dbhelper(this);
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
+
+
+        mswipeRefreshLayout.setRefreshing(false);
+
         Log.d("Rows", cursor.getCount() + "");
-
-
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 int id;
                 String name, des;
-                byte [] photo;
+                byte[] photo;
 
                 id = cursor.getInt(cursor.getColumnIndex("id"));
                 photo = cursor.getBlob(cursor.getColumnIndex("photo"));
@@ -64,14 +71,37 @@ public class List extends AppCompatActivity {
 
                 Place places = new Place(id, photo, name, des);
                 recyclerAdapter.getPlaces().add(places);
-                recyclerAdapter.notifyDataSetChanged();
+
+
             }
             while (cursor.moveToNext());
+
         }
 
+        mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
 
-        Add.setOnClickListener(new View.OnClickListener() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        recyclerAdapter.notifyDataSetChanged();
+                        // cancel the Visual indication of a refresh
+                        mswipeRefreshLayout.setRefreshing(false);
+
+                    }
+                }, 3000);
+
+
+            }
+        });
+
+
+        Add.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View v) {
 
@@ -81,10 +111,25 @@ public class List extends AppCompatActivity {
         });
     }
 
-
+//    private void RefreshItems() {
+//        if (cursor.moveToFirst()) {
+//            do {
+//                int id;
+//                String name, des;
+//                byte[] photo;
+//
+//                id = cursor.getInt(cursor.getColumnIndex("id"));
+//                photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+//                name = cursor.getString(cursor.getColumnIndex("name"));
+//                des = cursor.getString(cursor.getColumnIndex("des"));
+//
+//                Place places = new Place(id, photo, name, des);
+//                recyclerAdapter.getPlaces().add(places);
+//
+//            }
+//            while (cursor.moveToNext());
+//
+//        }
+//    }
 
 }
-
-
-
-
