@@ -2,6 +2,7 @@ package com.example.ayabeltran.firstproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -101,6 +102,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
     }
 
     public int getItemCount() {
+
         return places.size();
     }
 
