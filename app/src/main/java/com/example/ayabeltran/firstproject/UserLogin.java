@@ -5,9 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +13,6 @@ import android.widget.Toast;
 public class UserLogin extends AppCompatActivity {
 
     dbhelper mydb;
-    Button clear;
 
     public static EditText etloginame, etloginpword;
     Button btn_login;
@@ -33,11 +29,10 @@ public class UserLogin extends AppCompatActivity {
         etloginpword = findViewById(R.id.etLoginPword);
         btn_login = findViewById(R.id.btn_Login);
 
-
         login();
     }
 
-public void login(){
+    public void login(){
         btn_login.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

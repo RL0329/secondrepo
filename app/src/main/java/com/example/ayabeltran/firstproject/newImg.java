@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -141,9 +142,9 @@ public class newImg extends AppCompatActivity {
 
 
     public void AddImage(){
-        String name = etnewimgname.getText().toString();
-        String des = etdesc.getText().toString();
-        byte [] data = getimagebyte(btnimg);
+        final String name = etnewimgname.getText().toString();
+        final String des = etdesc.getText().toString();
+        final byte [] data = getimagebyte(btnimg);
 
 
 
@@ -159,11 +160,17 @@ public class newImg extends AppCompatActivity {
             return;
         }
 
-        mydb.addimg(data, name, des);
+//        Handler h = new Handler();
+//        h.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 3000);
 
         Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
-
+        mydb.addimg(data, name, des);
         Intent uploaded = new Intent(newImg.this, List.class);
         startActivity(uploaded);
         etnewimgname.setText("");

@@ -1,6 +1,5 @@
 package com.example.ayabeltran.firstproject;
 
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
@@ -53,9 +52,6 @@ public class UnameEditText extends android.support.v7.widget.AppCompatEditText {
                 return false;
             }
         });
-
-
-
     }
 
     void clearText(){

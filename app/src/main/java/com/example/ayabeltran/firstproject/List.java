@@ -12,9 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 
 public class List extends AppCompatActivity {
@@ -26,13 +28,11 @@ public class List extends AppCompatActivity {
     SwipeRefreshLayout mswipeRefreshLayout;
 
 
-    ArrayList<Place> places = new ArrayList<>();
+    ArrayList<Place> places = new ArrayList();
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     RecyclerAdapter recyclerAdapter;
-
-
 
 
     @Override
@@ -56,47 +56,41 @@ public class List extends AppCompatActivity {
         mydb = new dbhelper(this);
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
+
+
+        mswipeRefreshLayout.setRefreshing(false);
+
         Log.d("Rows", cursor.getCount() + "");
 
+        RefreshItems2();
+        Toast.makeText(this, "refresh 2", Toast.LENGTH_LONG).show();
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
 
+            public void onRefresh() {
+                places.clear();
                 RefreshItems();
-                new Handler().postDelayed(new Runnable() {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        recyclerAdapter.notifyDataSetChanged();
+
+                        // cancel the Visual indication of a refresh
                         mswipeRefreshLayout.setRefreshing(false);
 
                     }
-                 },3000);
+                }, 3000);
+
+
             }
         });
-    }
-
-        private void RefreshItems() {
-        if (cursor.moveToFirst()) {
-            do {
-                int id;
-                String name, des;
-                byte[] photo;
-
-                id = cursor.getInt(cursor.getColumnIndex("id"));
-                photo = cursor.getBlob(cursor.getColumnIndex("photo"));
-                name = cursor.getString(cursor.getColumnIndex("name"));
-                des = cursor.getString(cursor.getColumnIndex("des"));
-
-                Place places = new Place(id, photo, name, des);
-                recyclerAdapter.getPlaces().add(places);
-                recyclerAdapter.notifyDataSetChanged();
-            }
-            while (cursor.moveToNext());
-        }
 
 
+        Add.setOnClickListener(new View.OnClickListener()
 
-        Add.setOnClickListener(new View.OnClickListener() {
+        {
             @Override
             public void onClick(View v) {
 
@@ -106,14 +100,55 @@ public class List extends AppCompatActivity {
         });
     }
 
+      private void RefreshItems() {
+
+          if (cursor.moveToFirst()) {
+              do {
+                  int id;
+                  String name, des;
+                  byte[] photo;
+
+                  id = cursor.getInt(cursor.getColumnIndex("id"));
+                  photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+                  name = cursor.getString(cursor.getColumnIndex("name"));
+                  des = cursor.getString(cursor.getColumnIndex("des"));
+
+                  Place places = new Place(id, photo, name, des);
+                  recyclerAdapter.getPlaces().add(places);
 
 
+              }
+              while (cursor.moveToNext());
+
+          }
+
+       }private void RefreshItems2() {
+
+        if (cursor.moveToFirst()) {
+            do {
+                if(cursor.isFirst()){
+                    //do nothing
+                }
+                else{
+                    int id;
+                    String name, des;
+                    byte[] photo;
+
+                    id = cursor.getInt(cursor.getColumnIndex("id"));
+                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+                    name = cursor.getString(cursor.getColumnIndex("name"));
+                    des = cursor.getString(cursor.getColumnIndex("des"));
+
+                    Place places = new Place(id, photo, name, des);
+                    recyclerAdapter.getPlaces().add(places);
+                }
 
 
+            }
+            while (cursor.moveToNext());
 
+        }
+
+    }
 
 }
-
-
-
-

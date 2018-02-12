@@ -35,12 +35,9 @@ public class PwordEditText extends android.support.v7.widget.AppCompatEditText{
 
     private void init() {
 
-
-
         mbtnToggleVis.setBounds(0, 0, 100, 100);
         final int con = 1;
         this.setTransformationMethod(PasswordTransformationMethod.getInstance());
-
 
         this.addTextChangedListener(new TextWatcher() {
             @Override
@@ -57,7 +54,6 @@ public class PwordEditText extends android.support.v7.widget.AppCompatEditText{
             public void afterTextChanged(Editable s) {
 
             }
-
         });
 
         this.setOnTouchListener(new View.OnTouchListener() {
