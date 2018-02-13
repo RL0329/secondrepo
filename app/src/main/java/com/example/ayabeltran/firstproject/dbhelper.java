@@ -16,7 +16,9 @@ public class dbhelper extends SQLiteOpenHelper{
 
         public static final String dbname = "task1_4th.db";
         public static final String Tname = "loginDetails";
-        public static final String Tname2 = "imgTable";
+        public static final String Tname2 = "imgTable",
+                                    Tname3 ="newImgTable";
+
         public static final String col1 ="id";
         public static final String col2 ="email";
         public static final String col3 ="uname";
@@ -26,12 +28,19 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String t2col1 ="id",
                                     t2col2="photo",
                                     t2col3="name",
-                                    t2col4="des";
+                                    t2col4="des",
+                                    t3col1 ="id",
+                                    t3col2="photo",
+                                    t3col3="name",
+                                    t3col4="des";
+
+
+
 
 
     public dbhelper(Context context) {
         //creates the database//
-        super(context, dbname, null, 4);
+        super(context, dbname, null, 5);
     }
 
     @Override
@@ -50,6 +59,12 @@ public class dbhelper extends SQLiteOpenHelper{
                 +t2col2+" blob not null, "
                 +t2col3+" text not null, "
                 +t2col4+" text not null);");
+
+        db.execSQL("create table "+Tname3+" ("
+                +t3col1+" integer primary key autoincrement, "
+                +t3col2+" blob not null, "
+                +t3col3+" text not null, "
+                +t3col4+" text not null);");
 
         // inserts a default user into the db //
         db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +
@@ -77,14 +92,14 @@ public class dbhelper extends SQLiteOpenHelper{
         else
             return true;
     }
-        // method that inserts values into the imgtable table //
+        // method that inserts values into the newImgtable table //
     public boolean addimg(byte[] photo, String name, String des){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(t2col2, photo);
-        contentValues.put(t2col3, name);
-        contentValues.put(t2col4, des);
-         long result = db.insert(Tname2, null, contentValues);
+        contentValues.put(t3col2, photo);
+        contentValues.put(t3col3, name);
+        contentValues.put(t3col4, des);
+         long result = db.insert(Tname3, null, contentValues);
          if(result == -1)
              return false;
         else
@@ -105,5 +120,16 @@ public class dbhelper extends SQLiteOpenHelper{
         return cursor;
     }
 
+    public Cursor imgTransfer(SQLiteDatabase db){
+        String transferQry = "insert into "+Tname2+"("+t2col2+","+t2col3+","+t2col4+
+                ") select "+t3col2+","+t3col3+","+t3col4+" from "+Tname3;
+        Cursor cursor = db.rawQuery(transferQry, null);
+        return cursor;
+    }
 
+    public Cursor clearTable (SQLiteDatabase db){
+        String emptyTableQry ="truncate "+Tname3;
+        Cursor cursor = db.rawQuery(emptyTableQry, null);
+        return cursor;
+    }
 }

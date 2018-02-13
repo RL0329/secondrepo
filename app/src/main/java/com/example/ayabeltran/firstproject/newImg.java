@@ -160,23 +160,17 @@ public class newImg extends AppCompatActivity {
             return;
         }
 
-//        Handler h = new Handler();
-//        h.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 3000);
 
-        Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
+
+//        Intent uploaded = new Intent(newImg.this, List.class);
+//        startActivity(uploaded);
 
         mydb.addimg(data, name, des);
-        Intent uploaded = new Intent(newImg.this, List.class);
-        startActivity(uploaded);
-        newImg.this.finish();
+        Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
         etnewimgname.setText("");
         etdesc.setText("");
+        finish();
     }
 
 

@@ -32,7 +32,6 @@ public class List extends AppCompatActivity {
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
-
     RecyclerAdapter recyclerAdapter;
 
 
@@ -63,17 +62,15 @@ public class List extends AppCompatActivity {
 
         Log.d("Rows", cursor.getCount() + "");
 
+        RefreshItems();
 
-        RefreshItems2();
-//        Toast.makeText(this, "refresh 2", Toast.LENGTH_LONG).show();
+
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
 
             public void onRefresh() {
-
                 places.clear();
-
                 RefreshItems();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -86,16 +83,8 @@ public class List extends AppCompatActivity {
 
                     }
                 }, 3000);
-
-
-
-
             }
         });
-
-
-
-
 
 
         Add.setOnClickListener(new View.OnClickListener()
@@ -110,9 +99,16 @@ public class List extends AppCompatActivity {
         });
     }
 
-      private void RefreshItems() {
 
-          if (cursor.moveToFirst()) {
+
+
+
+
+
+
+
+      private void RefreshItems() {
+          cursor.moveToFirst();
               do {
                   int id;
                   String name, des;
@@ -125,44 +121,32 @@ public class List extends AppCompatActivity {
 
                   Place places = new Place(id, photo, name, des);
                   recyclerAdapter.getPlaces().add(places);
-
-
               }
               while (cursor.moveToNext());
+      }
 
-          }
-
-       }
-
-
-       private void RefreshItems2() {
-
-        if (cursor.moveToFirst()) {
-            do {
-                if(cursor.isFirst()){
-                    //do nothing
-                }
-                else{
-                    int id;
-                    String name, des;
-                    byte[] photo;
-
-                    id = cursor.getInt(cursor.getColumnIndex("id"));
-                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
-                    name = cursor.getString(cursor.getColumnIndex("name"));
-                    des = cursor.getString(cursor.getColumnIndex("des"));
-
-                    Place places = new Place(id, photo, name, des);
-                    recyclerAdapter.getPlaces().add(places);
-                }
-
-
-            }
-            while (cursor.moveToNext());
-
-        }
-
-    }
-
-
+//      private void RefreshItems2() {
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                if(cursor.isFirst()){
+//                    //do nothing
+//                }
+//                else{
+//                    int id;
+//                    String name, des;
+//                    byte[] photo;
+//
+//                    id = cursor.getInt(cursor.getColumnIndex("id"));
+//                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+//                    name = cursor.getString(cursor.getColumnIndex("name"));
+//                    des = cursor.getString(cursor.getColumnIndex("des"));
+//
+//                    Place places = new Place(id, photo, name, des);
+//                    recyclerAdapter.getPlaces().add(places);
+//                }
+//            }
+//            while (cursor.moveToNext());
+//        }
+//    }
 }
