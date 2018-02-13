@@ -92,14 +92,14 @@ public class dbhelper extends SQLiteOpenHelper{
         else
             return true;
     }
-        // method that inserts values into the imgtable table //
+        // method that inserts values into the newImgtable table //
     public boolean addimg(byte[] photo, String name, String des){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(t2col2, photo);
-        contentValues.put(t2col3, name);
-        contentValues.put(t2col4, des);
-         long result = db.insert(Tname2, null, contentValues);
+        contentValues.put(t3col2, photo);
+        contentValues.put(t3col3, name);
+        contentValues.put(t3col4, des);
+         long result = db.insert(Tname3, null, contentValues);
          if(result == -1)
              return false;
         else
@@ -117,6 +117,19 @@ public class dbhelper extends SQLiteOpenHelper{
         String items = "select * from imgTable order by "+t2col1+" desc";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
+        return cursor;
+    }
+
+    public Cursor imgTransfer(SQLiteDatabase db){
+        String transferQry = "insert into "+Tname2+"("+t2col2+","+t2col3+","+t2col4+
+                "select "+t3col2+","+t3col3+","+t3col4+" from "+Tname3;
+        Cursor cursor = db.rawQuery(transferQry, null);
+        return cursor;
+    }
+
+    public Cursor clearTable (SQLiteDatabase db){
+        String emptyTableQry ="truncate "+Tname3;
+        Cursor cursor = db.rawQuery(emptyTableQry, null);
         return cursor;
     }
 }
