@@ -32,6 +32,7 @@ public class List extends AppCompatActivity {
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
+
     RecyclerAdapter recyclerAdapter;
 
 
@@ -62,14 +63,17 @@ public class List extends AppCompatActivity {
 
         Log.d("Rows", cursor.getCount() + "");
 
+
         RefreshItems2();
-        Toast.makeText(this, "refresh 2", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "refresh 2", Toast.LENGTH_LONG).show();
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
 
             public void onRefresh() {
+
                 places.clear();
+
                 RefreshItems();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -84,8 +88,14 @@ public class List extends AppCompatActivity {
                 }, 3000);
 
 
+
+
             }
         });
+
+
+
+
 
 
         Add.setOnClickListener(new View.OnClickListener()
@@ -122,7 +132,10 @@ public class List extends AppCompatActivity {
 
           }
 
-       }private void RefreshItems2() {
+       }
+
+
+       private void RefreshItems2() {
 
         if (cursor.moveToFirst()) {
             do {
@@ -150,5 +163,6 @@ public class List extends AppCompatActivity {
         }
 
     }
+
 
 }

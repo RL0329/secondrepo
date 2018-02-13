@@ -173,6 +173,8 @@ public class newImg extends AppCompatActivity {
         mydb.addimg(data, name, des);
         Intent uploaded = new Intent(newImg.this, List.class);
         startActivity(uploaded);
+        newImg.this.finish();
+
         etnewimgname.setText("");
         etdesc.setText("");
     }
