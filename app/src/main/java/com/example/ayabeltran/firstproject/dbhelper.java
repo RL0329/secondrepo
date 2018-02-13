@@ -16,7 +16,9 @@ public class dbhelper extends SQLiteOpenHelper{
 
         public static final String dbname = "task1_4th.db";
         public static final String Tname = "loginDetails";
-        public static final String Tname2 = "imgTable";
+        public static final String Tname2 = "imgTable",
+                                    Tname3 ="newImgTable";
+
         public static final String col1 ="id";
         public static final String col2 ="email";
         public static final String col3 ="uname";
@@ -26,12 +28,19 @@ public class dbhelper extends SQLiteOpenHelper{
         public static final String t2col1 ="id",
                                     t2col2="photo",
                                     t2col3="name",
-                                    t2col4="des";
+                                    t2col4="des",
+                                    t3col1 ="id",
+                                    t3col2="photo",
+                                    t3col3="name",
+                                    t3col4="des";
+
+
+
 
 
     public dbhelper(Context context) {
         //creates the database//
-        super(context, dbname, null, 4);
+        super(context, dbname, null, 5);
     }
 
     @Override
@@ -50,6 +59,12 @@ public class dbhelper extends SQLiteOpenHelper{
                 +t2col2+" blob not null, "
                 +t2col3+" text not null, "
                 +t2col4+" text not null);");
+
+        db.execSQL("create table "+Tname3+" ("
+                +t3col1+" integer primary key autoincrement, "
+                +t3col2+" blob not null, "
+                +t3col3+" text not null, "
+                +t3col4+" text not null);");
 
         // inserts a default user into the db //
         db.execSQL("insert into loginDetails  (email, uname, pword, fname, lname) values " +

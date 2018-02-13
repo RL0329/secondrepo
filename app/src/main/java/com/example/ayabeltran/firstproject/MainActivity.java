@@ -29,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this,create_user.class);
-                        startActivity(intent);
+                        Intent i = new Intent(MainActivity.this,create_user.class);
+                        startActivity(i);
                     }
                 }
         );
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent movetoLogin = new Intent(MainActivity.this, UserLogin.class);
-                startActivity(movetoLogin);
+                Intent i = new Intent(MainActivity.this, UserLogin.class);
+                startActivity(i);
             }
         });
     }

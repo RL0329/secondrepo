@@ -7,40 +7,41 @@
     android:background="#FFF9C4"
     >
 
-    <Button
-        android:id="@+id/btnadd"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:drawable/ic_input_add" />
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#FFEB3B"
+            android:minHeight="?attr/actionBarSize"/>
+
+        <Button
+            android:id="@+id/btnadd"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:drawable/ic_input_add"
+            android:layout_gravity="right"/>
+    </android.support.v7.widget.ContentFrameLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/swiperefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/frame"
         android:scrollbars="vertical">
-
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/btnadd"
-            android:layout_alignParentStart="true"
-            />
-
+            android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="#FFEB3B"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/AppTheme.NoActionBar" />
 </RelativeLayout>

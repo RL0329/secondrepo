@@ -62,8 +62,9 @@ public class List extends AppCompatActivity {
 
         Log.d("Rows", cursor.getCount() + "");
 
-        RefreshItems2();
-        Toast.makeText(this, "refresh 2", Toast.LENGTH_LONG).show();
+        RefreshItems();
+
+
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -82,8 +83,6 @@ public class List extends AppCompatActivity {
 
                     }
                 }, 3000);
-
-
             }
         });
 
@@ -100,9 +99,16 @@ public class List extends AppCompatActivity {
         });
     }
 
-      private void RefreshItems() {
 
-          if (cursor.moveToFirst()) {
+
+
+
+
+
+
+
+      private void RefreshItems() {
+          cursor.moveToFirst();
               do {
                   int id;
                   String name, des;
@@ -115,40 +121,32 @@ public class List extends AppCompatActivity {
 
                   Place places = new Place(id, photo, name, des);
                   recyclerAdapter.getPlaces().add(places);
-
-
               }
               while (cursor.moveToNext());
+      }
 
-          }
-
-       }private void RefreshItems2() {
-
-        if (cursor.moveToFirst()) {
-            do {
-                if(cursor.isFirst()){
-                    //do nothing
-                }
-                else{
-                    int id;
-                    String name, des;
-                    byte[] photo;
-
-                    id = cursor.getInt(cursor.getColumnIndex("id"));
-                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
-                    name = cursor.getString(cursor.getColumnIndex("name"));
-                    des = cursor.getString(cursor.getColumnIndex("des"));
-
-                    Place places = new Place(id, photo, name, des);
-                    recyclerAdapter.getPlaces().add(places);
-                }
-
-
-            }
-            while (cursor.moveToNext());
-
-        }
-
-    }
-
+//      private void RefreshItems2() {
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                if(cursor.isFirst()){
+//                    //do nothing
+//                }
+//                else{
+//                    int id;
+//                    String name, des;
+//                    byte[] photo;
+//
+//                    id = cursor.getInt(cursor.getColumnIndex("id"));
+//                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+//                    name = cursor.getString(cursor.getColumnIndex("name"));
+//                    des = cursor.getString(cursor.getColumnIndex("des"));
+//
+//                    Place places = new Place(id, photo, name, des);
+//                    recyclerAdapter.getPlaces().add(places);
+//                }
+//            }
+//            while (cursor.moveToNext());
+//        }
+//    }
 }
