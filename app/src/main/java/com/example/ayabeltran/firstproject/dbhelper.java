@@ -120,16 +120,4 @@ public class dbhelper extends SQLiteOpenHelper{
         return cursor;
     }
 
-    public Cursor imgTransfer(SQLiteDatabase db){
-        String transferQry = "insert into "+Tname2+"("+t2col2+","+t2col3+","+t2col4+
-                ") select "+t3col2+","+t3col3+","+t3col4+" from "+Tname3;
-        Cursor cursor = db.rawQuery(transferQry, null);
-        return cursor;
-    }
-
-    public Cursor clearTable (SQLiteDatabase db){
-        String emptyTableQry ="truncate "+Tname3;
-        Cursor cursor = db.rawQuery(emptyTableQry, null);
-        return cursor;
-    }
 }

@@ -62,27 +62,18 @@ public class List extends AppCompatActivity {
 
         Log.d("Rows", cursor.getCount() + "");
 
-        RefreshItems();
+
+        onLoad();
 
 
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
+            public void onRefresh(){
 
-            public void onRefresh() {
-                places.clear();
-                RefreshItems();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerAdapter.notifyDataSetChanged();
+                reload();
 
-                        // cancel the Visual indication of a refresh
-                        mswipeRefreshLayout.setRefreshing(false);
 
-                    }
-                }, 3000);
             }
         });
 
@@ -100,53 +91,46 @@ public class List extends AppCompatActivity {
     }
 
 
+    private void onLoad() {
+
+            if (cursor.moveToFirst()) {
+                    do {
+                            int id;
+                            String name, des;
+                            byte[] photo;
+
+                            id = cursor.getInt(cursor.getColumnIndex("id"));
+                            photo = cursor.getBlob(cursor.getColumnIndex("photo"));
+                            name = cursor.getString(cursor.getColumnIndex("name"));
+                            des = cursor.getString(cursor.getColumnIndex("des"));
+
+                            Place places = new Place(id, photo, name, des);
+                            recyclerAdapter.getPlaces().add(places);
+                    }
+                    while (cursor.moveToNext());
+            }
+    }
+    private void reload(){
+            sqLiteDatabase.execSQL("insert into "+dbhelper.Tname2+"("+dbhelper.t2col2+","+dbhelper.t2col3+","+dbhelper.t2col4+
+                    ") select "+dbhelper.t3col2+","+dbhelper.t3col3+","+dbhelper.t3col4+" from "+dbhelper.Tname3);
+
+            sqLiteDatabase.execSQL("delete from "+dbhelper.Tname3);
 
 
+            places.clear();
 
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recyclerAdapter.notifyDataSetChanged();
 
+                    // cancel the Visual indication of a refresh
+                    mswipeRefreshLayout.setRefreshing(false);
+                    finish();
+                    startActivity(getIntent());
 
-
-
-      private void RefreshItems() {
-          cursor.moveToFirst();
-              do {
-                  int id;
-                  String name, des;
-                  byte[] photo;
-
-                  id = cursor.getInt(cursor.getColumnIndex("id"));
-                  photo = cursor.getBlob(cursor.getColumnIndex("photo"));
-                  name = cursor.getString(cursor.getColumnIndex("name"));
-                  des = cursor.getString(cursor.getColumnIndex("des"));
-
-                  Place places = new Place(id, photo, name, des);
-                  recyclerAdapter.getPlaces().add(places);
-              }
-              while (cursor.moveToNext());
-      }
-
-//      private void RefreshItems2() {
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                if(cursor.isFirst()){
-//                    //do nothing
-//                }
-//                else{
-//                    int id;
-//                    String name, des;
-//                    byte[] photo;
-//
-//                    id = cursor.getInt(cursor.getColumnIndex("id"));
-//                    photo = cursor.getBlob(cursor.getColumnIndex("photo"));
-//                    name = cursor.getString(cursor.getColumnIndex("name"));
-//                    des = cursor.getString(cursor.getColumnIndex("des"));
-//
-//                    Place places = new Place(id, photo, name, des);
-//                    recyclerAdapter.getPlaces().add(places);
-//                }
-//            }
-//            while (cursor.moveToNext());
-//        }
-//    }
+                }
+            }, 3000);
+    }
 }

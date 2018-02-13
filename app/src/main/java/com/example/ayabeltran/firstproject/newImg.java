@@ -86,8 +86,6 @@ public class newImg extends AppCompatActivity {
                                 dialog.dismiss();
                             }
                         });
-
-
                         dialog.show();
 
                     }
@@ -161,16 +159,14 @@ public class newImg extends AppCompatActivity {
         }
 
 
-
-//        Intent uploaded = new Intent(newImg.this, List.class);
-//        startActivity(uploaded);
-
         mydb.addimg(data, name, des);
         Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
+        Intent uploaded = new Intent(newImg.this, List.class);
+        startActivity(uploaded);
+
         etnewimgname.setText("");
         etdesc.setText("");
-        finish();
     }
 
 
