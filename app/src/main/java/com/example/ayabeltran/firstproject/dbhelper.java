@@ -122,7 +122,7 @@ public class dbhelper extends SQLiteOpenHelper{
 
     public Cursor imgTransfer(SQLiteDatabase db){
         String transferQry = "insert into "+Tname2+"("+t2col2+","+t2col3+","+t2col4+
-                "select "+t3col2+","+t3col3+","+t3col4+" from "+Tname3;
+                ") select "+t3col2+","+t3col3+","+t3col4+" from "+Tname3;
         Cursor cursor = db.rawQuery(transferQry, null);
         return cursor;
     }
