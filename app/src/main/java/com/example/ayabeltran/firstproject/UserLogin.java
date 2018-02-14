@@ -44,7 +44,7 @@ public class UserLogin extends AppCompatActivity {
                         Cursor res = mydb.userlogin(loginame, loginpword, sqLiteDatabase);
 
                         if(res.moveToFirst()){
-                            Intent intent = new Intent(UserLogin.this,List.class);
+                            Intent intent = new Intent(UserLogin.this,TabbedList.class);
                             startActivity(intent);
 
                             Toast.makeText(UserLogin.this, "welcome "+loginame+"!", Toast.LENGTH_SHORT).show();

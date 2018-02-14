@@ -162,7 +162,7 @@ public class newImg extends AppCompatActivity {
         mydb.addimg(data, name, des);
         Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
-        Intent uploaded = new Intent(newImg.this, List.class);
+        Intent uploaded = new Intent(newImg.this, TabbedList.class);
         startActivity(uploaded);
 
         etnewimgname.setText("");

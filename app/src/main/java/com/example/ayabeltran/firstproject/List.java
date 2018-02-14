@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class List extends AppCompatActivity {
     SwipeRefreshLayout mswipeRefreshLayout;
 
 
+
     ArrayList<Place> places = new ArrayList();
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
@@ -43,6 +45,7 @@ public class List extends AppCompatActivity {
         Add = findViewById(R.id.btnadd);
         recyclerView = findViewById(R.id.recyclerview);
         mswipeRefreshLayout = findViewById(R.id.swiperefresh);
+
 
 
         // adapter

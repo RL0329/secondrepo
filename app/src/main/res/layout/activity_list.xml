@@ -29,7 +29,13 @@
             android:layout_alignParentTop="true"
             android:background="@android:drawable/ic_input_add"
             android:layout_gravity="right"/>
+
+
+
+
     </android.support.v7.widget.ContentFrameLayout>
+
+
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"
