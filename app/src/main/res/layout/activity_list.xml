@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ayabeltran.firstproject.List"
     android:background="#FFF9C4"
-    >
+    tools:context="com.example.ayabeltran.firstproject.List"
+    android:orientation="vertical">
 
     <android.support.v7.widget.ContentFrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -18,7 +20,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="#FFEB3B"
-            android:minHeight="?attr/actionBarSize"/>
+            android:minHeight="?attr/actionBarSize" />
 
         <Button
             android:id="@+id/btnadd"
@@ -27,21 +29,42 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="@android:drawable/ic_input_add"
-            android:layout_gravity="right"/>
+            android:layout_gravity="right"
+            android:background="@android:drawable/ic_input_add" />
+
     </android.support.v7.widget.ContentFrameLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/frame"
-        android:scrollbars="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/bottomFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+
+        </android.support.design.widget.TabLayout>
+
+
+    </android.support.v7.widget.ContentFrameLayout>
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pagerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v4.view.ViewPager>
+
+
+    </android.support.v7.widget.ContentFrameLayout>
+
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>
