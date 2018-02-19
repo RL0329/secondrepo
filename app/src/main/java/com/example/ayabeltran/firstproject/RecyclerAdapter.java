@@ -83,7 +83,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
         holder.des.setText(places.get(position).getDes());
         holder.selectedPlace = places.get(position);
         Glide.with(context).load(places.get(position).getPhoto()).into(holder.photo);
-        Toast.makeText(context, places.get(position).getPhoto().toString(), Toast.LENGTH_SHORT).show();
     }
 
     public int getItemCount() {

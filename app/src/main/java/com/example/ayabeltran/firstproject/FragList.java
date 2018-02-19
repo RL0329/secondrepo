@@ -118,6 +118,15 @@ public class FragList extends Fragment {
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
 
+                Fragment frag= null;
+                frag = getFragmentManager().getFragments().get(0);
+                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                ft.detach(frag);
+                ft.attach(frag);
+                ft.commit();
+
+
             }
         }, 3000);
     }

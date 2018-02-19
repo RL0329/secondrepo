@@ -1,5 +1,6 @@
 package com.example.ayabeltran.firstproject;
 
+import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -24,6 +25,7 @@ public class FragGrid extends Fragment {
     RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     SwipeRefreshLayout mswipeRefreshLayout;
+
 
     ArrayList<Place> places = new ArrayList();
     dbhelper mydb;
@@ -61,6 +63,7 @@ public class FragGrid extends Fragment {
         mswipeRefreshLayout.setRefreshing(false);
 
         onLoad();
+
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -115,8 +118,24 @@ public class FragGrid extends Fragment {
 
                 // cancel the Visual indication of a refresh
                 mswipeRefreshLayout.setRefreshing(false);
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+//                getActivity().finish();
+//                startActivity(getActivity().getIntent());
+
+                Fragment frag= null;
+                frag = getFragmentManager().getFragments().get(1);
+                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                ft.detach(frag);
+                ft.attach(frag);
+                ft.commit();
+
+
+//                Fragment frg = null;
+//                frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                ft.detach(frg);
+//                ft.attach(frg);
+//                ft.commit();
 
             }
         }, 3000);
