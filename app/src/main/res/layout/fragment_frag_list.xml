@@ -19,4 +19,11 @@ tools:context="com.example.ayabeltran.firstproject.FragList">
         android:layout_height="match_parent" />
 </android.support.v4.widget.SwipeRefreshLayout>
 
+
+    <com.srx.widget.PullToLoadView
+        android:id="@+id/pullToLoadView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
 </FrameLayout>
