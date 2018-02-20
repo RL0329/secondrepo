@@ -31,7 +31,7 @@ public class FragGrid extends Fragment {
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
-    RecyclerAdapter recyclerAdapter;
+    GridAdapter gridAdapter;
 
 
 
@@ -44,14 +44,14 @@ public class FragGrid extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_frag_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_frag_grid, container, false);
 
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
 
         // adapter
-        recyclerAdapter = new RecyclerAdapter(places, getActivity());
-        recyclerView.setAdapter(recyclerAdapter);
+        gridAdapter = new GridAdapter(places, getActivity());
+        recyclerView.setAdapter(gridAdapter);
         mLayoutManager = new GridLayoutManager(getActivity(),3);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -96,7 +96,7 @@ public class FragGrid extends Fragment {
                 des = cursor.getString(cursor.getColumnIndex("des"));
 
                 Place places = new Place(id, photo, name, des);
-                recyclerAdapter.getPlaces().add(places);
+                gridAdapter.getPlaces().add(places);
             }
             while (cursor.moveToNext());
         }
@@ -114,7 +114,7 @@ public class FragGrid extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                recyclerAdapter.notifyDataSetChanged();
+                gridAdapter.notifyDataSetChanged();
 
                 // cancel the Visual indication of a refresh
                 mswipeRefreshLayout.setRefreshing(false);
