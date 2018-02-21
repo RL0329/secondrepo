@@ -16,6 +16,8 @@ import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.srx.widget.PullToLoadView;
+
 import java.util.ArrayList;
 
 
@@ -34,9 +36,14 @@ public class FragList extends Fragment {
     Cursor cursor;
     Cursor pulled;
     RecyclerAdapter recyclerAdapter;
+
     Boolean isScrolling=false;
     int currentItems=5,totalItems,scrollOutItems=2;
     ProgressBar progressBar;
+    PullToLoadView pullToLoadView;
+
+
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,6 +59,7 @@ public class FragList extends Fragment {
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
          progressBar = v.findViewById(R.id.progress);
+
 
         // adapter
         recyclerAdapter = new RecyclerAdapter(places, getActivity());
@@ -87,6 +95,7 @@ public class FragList extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
     private void EndlessScroll(){
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -120,6 +129,7 @@ public class FragList extends Fragment {
         });
     }
     private void onLoad() {
+
 
         if (cursor.moveToFirst()) {
             do {
