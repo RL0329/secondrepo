@@ -1,6 +1,7 @@
 package com.example.ayabeltran.firstproject;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -9,10 +10,15 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
+
+import com.srx.widget.PullToLoadView;
 
 import java.util.ArrayList;
 
@@ -32,9 +38,10 @@ public class FragGrid extends Fragment {
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     GridAdapter gridAdapter;
-
-
-
+    Boolean isScrolling=false;
+    int currentItems=5,totalItems,scrollOutItems=2;
+    ProgressBar progressBar;
+    Cursor pulled;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public FragGrid() {
@@ -48,6 +55,7 @@ public class FragGrid extends Fragment {
 
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
+        progressBar = v.findViewById(R.id.progress);
 
         // adapter
         gridAdapter = new GridAdapter(places, getActivity());
@@ -59,7 +67,9 @@ public class FragGrid extends Fragment {
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
+        pulled = mydb.pulledItens(sqLiteDatabase);
 
+        EndlessScroll();
         mswipeRefreshLayout.setRefreshing(false);
 
         onLoad();
@@ -73,6 +83,8 @@ public class FragGrid extends Fragment {
             }
         });
 
+
+
         // Inflate the layout for this fragment
         return v;
     }
@@ -82,6 +94,32 @@ public class FragGrid extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void EndlessScroll(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                {
+                    isScrolling=true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItems=mLayoutManager.getChildCount();
+                totalItems=mLayoutManager.getItemCount();
+                scrollOutItems = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                if (isScrolling && (currentItems+scrollOutItems == totalItems))
+                {
+
+                    fetchData();
+                    isScrolling=false;
+                }
+            }
+        });
+    }
     private void onLoad() {
 
         if (cursor.moveToFirst()) {
@@ -136,6 +174,42 @@ public class FragGrid extends Fragment {
 //                ft.detach(frg);
 //                ft.attach(frg);
 //                ft.commit();
+
+            }
+        }, 3000);
+    }
+    private void fetchData(){
+
+        if (pulled.moveToFirst()) {
+            do {
+                int id;
+                String name, des;
+                byte[] photo;
+
+                id = pulled.getInt(pulled.getColumnIndex("id"));
+                photo = pulled.getBlob(pulled.getColumnIndex("photo"));
+                name = pulled.getString(pulled.getColumnIndex("name"));
+                des = pulled.getString(pulled.getColumnIndex("des"));
+
+                Place places = new Place(id, photo, name, des);
+                gridAdapter.getPlaces().add(places);
+            }
+            while (pulled.moveToNext());
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<3;i++) {
+
+//                    gridAdapter.clearData();
+                    gridAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+
+                }
+
 
             }
         }, 3000);

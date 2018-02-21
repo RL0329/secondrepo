@@ -93,6 +93,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyVie
 
         return places.size();
     }
+    public void clearData() {
+        places.clear();
+        notifyDataSetChanged();
+    }
 }
 
 
