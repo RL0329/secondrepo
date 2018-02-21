@@ -9,14 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.srx.widget.PullToLoadView;
 
 import java.util.ArrayList;
 
@@ -35,12 +34,14 @@ public class FragList extends Fragment {
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     Cursor pulled;
+
     RecyclerAdapter recyclerAdapter;
 
     Boolean isScrolling=false;
-    int currentItems=5,totalItems,scrollOutItems=2;
+    int currentItems=5,
+            totalItems,
+            scrollOutItems=5;
     ProgressBar progressBar;
-    PullToLoadView pullToLoadView;
 
 
 
@@ -71,9 +72,14 @@ public class FragList extends Fragment {
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
-        pulled = mydb.pulledItens(sqLiteDatabase);
+
+
+
+
+
 
         EndlessScroll();
+
         mswipeRefreshLayout.setRefreshing(false);
 
         onLoad();
@@ -107,14 +113,23 @@ public class FragList extends Fragment {
                 }
             }
 
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 currentItems=mLayoutManager.getChildCount();
                 totalItems=mLayoutManager.getItemCount();
+
+                int rowCount = mydb.getimgTableCount();
+                pulled = pulledItens(sqLiteDatabase);
+
+
+
+
                 scrollOutItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                if (isScrolling && (currentItems+scrollOutItems == totalItems))
+                if (isScrolling && (currentItems+scrollOutItems < rowCount) && (places.size()<rowCount))
                 {
+
 
                     fetchData();
                     isScrolling=false;
@@ -128,6 +143,15 @@ public class FragList extends Fragment {
 
         });
     }
+
+    public Cursor pulledItens (SQLiteDatabase db) {
+        String pull = "select * from imgTable order by " + dbhelper.t2col1 + " desc limit 5 offset "+(totalItems);
+        Log.d("pull", pull);
+        Cursor cursor = db.rawQuery(pull, null);
+        return cursor;
+    }
+
+
     private void onLoad() {
 
 
@@ -170,7 +194,6 @@ public class FragList extends Fragment {
                     startActivity(getActivity().getIntent());
 
 
-//
                 Fragment frag= null;
                 frag = getFragmentManager().getFragments().get(0);
                 final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -200,8 +223,10 @@ public class FragList extends Fragment {
                 recyclerAdapter.getPlaces().add(places);
             }
             while (pulled.moveToNext());
-            String lengtharr = String.valueOf(places.size());
-            Toast.makeText(getActivity(),lengtharr, Toast.LENGTH_SHORT).show();
+
+
+            String count = String.valueOf(totalItems);
+            Toast.makeText(getActivity(),count, Toast.LENGTH_SHORT).show();
         }
 
         progressBar.setVisibility(View.VISIBLE);
@@ -224,6 +249,7 @@ public class FragList extends Fragment {
             }
         }, 3000);
     }
+
 
 
 }

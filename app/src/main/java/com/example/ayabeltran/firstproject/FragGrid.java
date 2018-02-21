@@ -1,7 +1,5 @@
 package com.example.ayabeltran.firstproject;
 
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -10,15 +8,13 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
-
-import com.srx.widget.PullToLoadView;
 
 import java.util.ArrayList;
 
@@ -67,7 +63,7 @@ public class FragGrid extends Fragment {
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
-        pulled = mydb.pulledItens(sqLiteDatabase);
+
 
         EndlessScroll();
         mswipeRefreshLayout.setRefreshing(false);
@@ -110,17 +106,33 @@ public class FragGrid extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 currentItems=mLayoutManager.getChildCount();
                 totalItems=mLayoutManager.getItemCount();
+                int rowCount = mydb.getimgTableCount();
+                pulled = pulledItens(sqLiteDatabase);
+
+
                 scrollOutItems = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                if (isScrolling && (currentItems+scrollOutItems == totalItems))
+                if (isScrolling && (currentItems+scrollOutItems < rowCount) && (places.size()<rowCount))
                 {
 
                     fetchData();
                     isScrolling=false;
                 }
+                else {
+                    isScrolling=false;
+                }
             }
         });
     }
+
+    public Cursor pulledItens (SQLiteDatabase db) {
+        String pull = "select * from imgTable order by " + dbhelper.t2col1 + " desc limit 5 offset "+totalItems;
+        Log.d("pull", pull);
+        Cursor cursor = db.rawQuery(pull, null);
+        return cursor;
+    }
+
     private void onLoad() {
+
 
         if (cursor.moveToFirst()) {
             do {
@@ -152,6 +164,14 @@ public class FragGrid extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                cursor = mydb.itemslisted(sqLiteDatabase);
+
+                gridAdapter = new GridAdapter(places,getActivity());
+
+                recyclerView.setAdapter(gridAdapter);
+
+                onLoad();
+
                 gridAdapter.notifyDataSetChanged();
 
                 // cancel the Visual indication of a refresh
@@ -159,13 +179,13 @@ public class FragGrid extends Fragment {
 //                getActivity().finish();
 //                startActivity(getActivity().getIntent());
 
-                Fragment frag= null;
-                frag = getFragmentManager().getFragments().get(1);
-                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-                ft.detach(frag);
-                ft.attach(frag);
-                ft.commit();
+//                Fragment frag= null;
+//                frag = getFragmentManager().getFragments().get(1);
+//                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//
+//                ft.detach(frag);
+//                ft.attach(frag);
+//                ft.commit();
 
 
 //                Fragment frg = null;
