@@ -114,7 +114,7 @@ public class dbhelper extends SQLiteOpenHelper{
     }
         // method that calls all the contents of the imgtable //
     public Cursor itemslisted (SQLiteDatabase db) {
-        String items = "select * from imgTable order by "+t2col1+" desc";
+        String items = "select * from imgTable order by "+t2col1+" desc limit 5";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
         return cursor;

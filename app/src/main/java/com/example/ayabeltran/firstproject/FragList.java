@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.srx.widget.PullToLoadView;
+
 import java.util.ArrayList;
 
 
@@ -30,6 +32,7 @@ public class FragList extends Fragment {
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
     RecyclerAdapter recyclerAdapter;
+    PullToLoadView pullToLoadView;
 
 
 
@@ -46,6 +49,11 @@ public class FragList extends Fragment {
 
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
+
+        //pulltoload
+
+        pullToLoadView = v.findViewById(R.id.pullToLoadView);
+        new Paginator(getActivity(),pullToLoadView).initializePaginator();
 
         // adapter
         recyclerAdapter = new RecyclerAdapter(places, getActivity());
@@ -79,7 +87,7 @@ public class FragList extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void onLoad() {
+    public void onLoad() {
 
         if (cursor.moveToFirst()) {
             do {
