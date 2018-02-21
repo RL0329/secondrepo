@@ -12,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,9 +32,11 @@ public class FragList extends Fragment {
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
+    Cursor pulled;
     RecyclerAdapter recyclerAdapter;
-
-
+    Boolean isScrolling=false;
+    int currentItems=5,totalItems,scrollOutItems=2;
+    ProgressBar progressBar;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,10 +47,11 @@ public class FragList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_frag_list, container, false);
+        final View v = inflater.inflate(R.layout.fragment_frag_list, container, false);
 
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
+         progressBar = v.findViewById(R.id.progress);
 
         // adapter
         recyclerAdapter = new RecyclerAdapter(places, getActivity());
@@ -57,7 +63,9 @@ public class FragList extends Fragment {
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
         cursor = mydb.itemslisted(sqLiteDatabase);
+        pulled = mydb.pulledItens(sqLiteDatabase);
 
+        EndlessScroll();
         mswipeRefreshLayout.setRefreshing(false);
 
         onLoad();
@@ -79,6 +87,38 @@ public class FragList extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void EndlessScroll(){
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                {
+                    isScrolling=true;
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                currentItems=mLayoutManager.getChildCount();
+                totalItems=mLayoutManager.getItemCount();
+                scrollOutItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                if (isScrolling && (currentItems+scrollOutItems == totalItems))
+                {
+
+                    fetchData();
+                    isScrolling=false;
+                }
+                else {
+                    isScrolling=false;
+                }
+
+            }
+
+
+        });
+    }
     private void onLoad() {
 
         if (cursor.moveToFirst()) {
@@ -111,13 +151,16 @@ public class FragList extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                recyclerAdapter.notifyDataSetChanged();
 
-                // cancel the Visual indication of a refresh
-                mswipeRefreshLayout.setRefreshing(false);
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+                    recyclerAdapter.notifyDataSetChanged();
 
+                    // cancel the Visual indication of a refresh
+                    mswipeRefreshLayout.setRefreshing(false);
+                    getActivity().finish();
+                    startActivity(getActivity().getIntent());
+
+
+//
                 Fragment frag= null;
                 frag = getFragmentManager().getFragments().get(0);
                 final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -130,4 +173,50 @@ public class FragList extends Fragment {
             }
         }, 3000);
     }
+    private void fetchData(){
+
+        if (pulled.moveToFirst()) {
+            do {
+                int id;
+                String name, des;
+                byte[] photo;
+
+                id = pulled.getInt(pulled.getColumnIndex("id"));
+                photo = pulled.getBlob(pulled.getColumnIndex("photo"));
+                name = pulled.getString(pulled.getColumnIndex("name"));
+                des = pulled.getString(pulled.getColumnIndex("des"));
+
+                Place places = new Place(id, photo, name, des);
+                recyclerAdapter.getPlaces().add(places);
+            }
+            while (pulled.moveToNext());
+            String lengtharr = String.valueOf(places.size());
+            Toast.makeText(getActivity(),lengtharr, Toast.LENGTH_SHORT).show();
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                for(int i=0;i<3;i++) {
+
+
+                    recyclerAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+
+
+
+                }
+
+
+            }
+        }, 3000);
+    }
+
+
 }
+
+
+
