@@ -37,14 +37,11 @@ public class FragList extends Fragment {
 
     RecyclerAdapter recyclerAdapter;
 
-    Boolean isScrolling=false;
-    int currentItems=5,
+    Boolean isScrolling = false;
+    int currentItems = 5,
             totalItems,
-            scrollOutItems=5;
+            scrollOutItems = 5;
     ProgressBar progressBar;
-
-
-
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,36 +56,35 @@ public class FragList extends Fragment {
 
         recyclerView = v.findViewById(R.id.recyclerview);
         mswipeRefreshLayout = v.findViewById(R.id.swiperefresh);
-         progressBar = v.findViewById(R.id.progress);
+        progressBar = v.findViewById(R.id.progress);
 
 
         // adapter
-        recyclerAdapter = new RecyclerAdapter(places, getActivity());
-        recyclerView.setAdapter(recyclerAdapter);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
 
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
-        cursor = mydb.itemslisted(sqLiteDatabase);
 
-
-
-
-
+        refreshList();
 
         EndlessScroll();
 
         mswipeRefreshLayout.setRefreshing(false);
 
-        onLoad();
+//        onLoad();
 
         mswipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(){
+            public void onRefresh() {
+                places.clear();
 
-                reload();
+                refreshList();
+
+                if (mswipeRefreshLayout.isRefreshing())
+                    mswipeRefreshLayout.setRefreshing(false);
+
             }
         });
 
@@ -102,14 +98,13 @@ public class FragList extends Fragment {
     }
 
 
-    private void EndlessScroll(){
+    private void EndlessScroll() {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
-                {
-                    isScrolling=true;
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
                 }
             }
 
@@ -117,25 +112,24 @@ public class FragList extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                currentItems=mLayoutManager.getChildCount();
-                totalItems=mLayoutManager.getItemCount();
+                currentItems = mLayoutManager.getChildCount();
+                totalItems = mLayoutManager.getItemCount();
 
                 int rowCount = mydb.getimgTableCount();
                 pulled = pulledItens(sqLiteDatabase);
 
+                int count = mLayoutManager.getChildCount();
+                System.out.println(count);
 
 
-
-                scrollOutItems = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                if (isScrolling && (currentItems+scrollOutItems < rowCount) && (places.size()<rowCount))
-                {
+                scrollOutItems = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                if (isScrolling && (places.size() < rowCount)) {
 
 
-                    fetchData();
-                    isScrolling=false;
-                }
-                else {
-                    isScrolling=false;
+                    //fetchData();
+                    isScrolling = false;
+                } else {
+                    isScrolling = false;
                 }
 
             }
@@ -144,16 +138,16 @@ public class FragList extends Fragment {
         });
     }
 
-    public Cursor pulledItens (SQLiteDatabase db) {
-        String pull = "select * from imgTable order by " + dbhelper.t2col1 + " desc limit 5 offset "+(totalItems);
+    public Cursor pulledItens(SQLiteDatabase db) {
+        String pull = "select * from imgTable order by " + dbhelper.t2col1 + " desc limit 5 offset " + (totalItems);
         Log.d("pull", pull);
         Cursor cursor = db.rawQuery(pull, null);
         return cursor;
     }
 
 
-    private void onLoad() {
-
+    private ArrayList<Place> convertCursorToListPlace(Cursor cursor) {
+        ArrayList<Place> places = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
             do {
@@ -166,17 +160,41 @@ public class FragList extends Fragment {
                 name = cursor.getString(cursor.getColumnIndex("name"));
                 des = cursor.getString(cursor.getColumnIndex("des"));
 
-                Place places = new Place(id, photo, name, des);
-                recyclerAdapter.getPlaces().add(places);
+                Place place = new Place(id, photo, name, des);
+                places.add(place);
             }
             while (cursor.moveToNext());
-        }
-    }
-    private void reload(){
-        sqLiteDatabase.execSQL("insert into "+dbhelper.Tname2+"("+dbhelper.t2col2+","+dbhelper.t2col3+","+dbhelper.t2col4+
-                ") select "+dbhelper.t3col2+","+dbhelper.t3col3+","+dbhelper.t3col4+" from "+dbhelper.Tname3);
 
-        sqLiteDatabase.execSQL("delete from "+dbhelper.Tname3);
+        }
+
+        return places;
+    }
+
+    private void refreshList() {
+        Cursor cursor = getItemsFromDB();
+        populateList(cursor);
+
+
+
+    }
+
+    private Cursor getItemsFromDB() {
+        return mydb.itemslisted(sqLiteDatabase);
+    }
+
+    private void populateList(Cursor cursor) {
+        places = convertCursorToListPlace(cursor);
+
+        recyclerAdapter = new RecyclerAdapter(places, getContext());
+
+        recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    private void reload() {
+        sqLiteDatabase.execSQL("insert into " + dbhelper.Tname2 + "(" + dbhelper.t2col2 + "," + dbhelper.t2col3 + "," + dbhelper.t2col4 +
+                ") select " + dbhelper.t3col2 + "," + dbhelper.t3col3 + "," + dbhelper.t3col4 + " from " + dbhelper.Tname3);
+
+        sqLiteDatabase.execSQL("delete from " + dbhelper.Tname3);
 
 
         places.clear();
@@ -186,27 +204,28 @@ public class FragList extends Fragment {
             @Override
             public void run() {
 
-                    recyclerAdapter.notifyDataSetChanged();
+                recyclerAdapter.notifyDataSetChanged();
 
-                    // cancel the Visual indication of a refresh
-                    mswipeRefreshLayout.setRefreshing(false);
-                    getActivity().finish();
-                    startActivity(getActivity().getIntent());
+                // cancel the Visual indication of a refresh
+                mswipeRefreshLayout.setRefreshing(false);
+//                    getActivity().finish();
+//                    startActivity(getActivity().getIntent());
 
 
-                Fragment frag= null;
-                frag = getFragmentManager().getFragments().get(0);
-                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-                ft.detach(frag);
-                ft.attach(frag);
-                ft.commit();
+//                Fragment frag= null;
+//                frag = getFragmentManager().getFragments().get(0);
+//                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//
+//                ft.detach(frag);
+//                ft.attach(frag);
+//                ft.commit();
 
 
             }
         }, 3000);
     }
-    private void fetchData(){
+
+    private void fetchData() {
 
         if (pulled.moveToFirst()) {
             do {
@@ -226,7 +245,7 @@ public class FragList extends Fragment {
 
 
             String count = String.valueOf(totalItems);
-            Toast.makeText(getActivity(),count, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), count, Toast.LENGTH_SHORT).show();
         }
 
         progressBar.setVisibility(View.VISIBLE);
@@ -235,12 +254,11 @@ public class FragList extends Fragment {
 
             @Override
             public void run() {
-                for(int i=0;i<3;i++) {
+                for (int i = 0; i < 3; i++) {
 
 
                     recyclerAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
-
 
 
                 }
@@ -249,7 +267,6 @@ public class FragList extends Fragment {
             }
         }, 3000);
     }
-
 
 
 }

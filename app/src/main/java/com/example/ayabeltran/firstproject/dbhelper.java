@@ -99,7 +99,7 @@ public class dbhelper extends SQLiteOpenHelper{
         contentValues.put(t3col2, photo);
         contentValues.put(t3col3, name);
         contentValues.put(t3col4, des);
-         long result = db.insert(Tname3, null, contentValues);
+         long result = db.insert(Tname2, null, contentValues);
          if(result == -1)
              return false;
         else
@@ -114,7 +114,7 @@ public class dbhelper extends SQLiteOpenHelper{
     }
         // method that calls all the contents of the imgtable //
     public Cursor itemslisted (SQLiteDatabase db) {
-        String items = "select * from imgTable order by "+t2col1+" desc limit 5";
+        String items = "select * from imgTable order by "+t2col1+" desc limit 10";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
