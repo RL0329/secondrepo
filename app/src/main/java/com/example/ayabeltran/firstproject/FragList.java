@@ -106,7 +106,7 @@ public class FragList extends Fragment {
             while (cursor.moveToNext());
         }
     }
-    private void reload(){
+    public void reload(){
         sqLiteDatabase.execSQL("insert into "+dbhelper.Tname2+"("+dbhelper.t2col2+","+dbhelper.t2col3+","+dbhelper.t2col4+
                 ") select "+dbhelper.t3col2+","+dbhelper.t3col3+","+dbhelper.t3col4+" from "+dbhelper.Tname3);
 
@@ -138,4 +138,5 @@ public class FragList extends Fragment {
             }
         }, 3000);
     }
+
 }

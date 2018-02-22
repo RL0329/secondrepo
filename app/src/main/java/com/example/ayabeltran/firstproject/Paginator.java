@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by ayabeltran on 20/02/2018.
  */
 
-public class Paginator {
+public class Paginator extends FragList{
 
     Context c;
     private PullToLoadView pullToLoadView;
@@ -28,6 +28,8 @@ public class Paginator {
     Cursor cursor;
     dbhelper mydb;
     SQLiteDatabase sqLiteDatabase;
+
+
 
 
     public Paginator(Context c, PullToLoadView pullToLoadView) {
@@ -68,6 +70,9 @@ public class Paginator {
                 adapter.clear();
                 hasLoadedAll=false;
                 loadData(1);
+//                sqLiteDatabase.execSQL("select * from imgTable order by "+dbhelper.t2col1+" desc  limit 5 offset 5");
+                reload();
+
             }
 
             //IS LOADING
