@@ -119,5 +119,20 @@ public class dbhelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
     }
+//    public Cursor pulledItens (SQLiteDatabase db) {
+//        String pull = "select * from imgTable order by "+t2col1+" desc limit 5 offset 5";
+//        Log.d("pull", pull);
+//        Cursor cursor = db.rawQuery(pull, null);
+//        return cursor;
+//    }
+
+      public int getimgTableCount() {
+        String countQuery = "SELECT  * FROM imgTable";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
 
 }

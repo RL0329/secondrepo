@@ -93,4 +93,9 @@ public class GridAdapter extends RecyclerView.Adapter <GridAdapter.MyViewHolder>
     public int getItemCount() {
         return places.size();
     }
+
+//    public void clearData() {
+//        places.clear();
+//        notifyDataSetChanged();
+//    }
 }

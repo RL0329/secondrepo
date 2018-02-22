@@ -26,5 +26,11 @@
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher" />
     </android.support.v4.widget.SwipeRefreshLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:visibility="gone"
+        android:id="@+id/progress"/>
 
 </FrameLayout>
