@@ -40,7 +40,7 @@ public class FragList extends Fragment {
     Boolean isScrolling = false;
     int currentItems = 5,
             totalItems,
-            scrollOutItems = 5;
+            lastVisItem;
     ProgressBar progressBar;
 
 
@@ -118,18 +118,24 @@ public class FragList extends Fragment {
                 int rowCount = mydb.getimgTableCount();
                 pulled = pulledItens(sqLiteDatabase);
 
-                int count = mLayoutManager.getChildCount();
-                System.out.println(count);
+                int listSize = places.size();
+                int itemsOnScreen = mLayoutManager.getChildCount();
+                lastVisItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
 
 
-                scrollOutItems = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                if (isScrolling && (places.size() < rowCount)) {
+                System.out.println(listSize);
+                System.out.println(lastVisItem);
 
 
-                    //fetchData();
-                    isScrolling = false;
+
+
+                if (isScrolling && (lastVisItem+2) > places.size() && (places.size() < rowCount )) {
+
+
+                    fetchData();
+//                    isScrolling = false;
                 } else {
-                    isScrolling = false;
+//                    isScrolling = false;
                 }
 
             }
