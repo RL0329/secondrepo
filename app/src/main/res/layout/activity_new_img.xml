@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <android.support.v7.widget.LinearLayoutCompat xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -59,8 +62,10 @@
         android:background="#FFEB3B"
         android:text="@string/add_img"
         android:textColor="#000000"
-        android:gravity="bottom"
-        android:textAlignment="center"/>
+        android:gravity="bottom|center"
+        android:textAlignment="center"
+        android:layout_marginTop="70dp"/>
 
 
 </android.support.v7.widget.LinearLayoutCompat>
+    </ScrollView>
