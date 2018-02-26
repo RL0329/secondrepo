@@ -62,7 +62,7 @@ public class FragGrid extends Fragment {
 
         mydb = new dbhelper(getActivity());
         sqLiteDatabase = mydb.getReadableDatabase();
-        cursor = mydb.itemslisted(sqLiteDatabase);
+        cursor = mydb.gridItemslisted(sqLiteDatabase);
 
         refreshList();
         EndlessScroll();
@@ -180,48 +180,48 @@ public class FragGrid extends Fragment {
                 return mydb.itemslisted(sqLiteDatabase);
 
             }
-    private void reload() {
-                sqLiteDatabase.execSQL("insert into " + dbhelper.Tname2 + "(" + dbhelper.t2col2 + "," + dbhelper.t2col3 + "," + dbhelper.t2col4 +
-                        ") select " + dbhelper.t3col2 + "," + dbhelper.t3col3 + "," + dbhelper.t3col4 + " from " + dbhelper.Tname3);
-
-                sqLiteDatabase.execSQL("delete from " + dbhelper.Tname3);
-
-
-                places.clear();
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        //onLoad();
-
-                        gridAdapter.notifyDataSetChanged();
-
-                        // cancel the Visual indication of a refresh
-                        mswipeRefreshLayout.setRefreshing(false);
-//                getActivity().finish();
-//                startActivity(getActivity().getIntent());
-
-//                Fragment frag= null;
-//                frag = getFragmentManager().getFragments().get(1);
-//                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//    private void reload() {
+//                sqLiteDatabase.execSQL("insert into " + dbhelper.Tname2 + "(" + dbhelper.t2col2 + "," + dbhelper.t2col3 + "," + dbhelper.t2col4 +
+//                        ") select " + dbhelper.t3col2 + "," + dbhelper.t3col3 + "," + dbhelper.t3col4 + " from " + dbhelper.Tname3);
 //
-//                ft.detach(frag);
-//                ft.attach(frag);
-//                ft.commit();
-
-
-//                Fragment frg = null;
-//                frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
-//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.detach(frg);
-//                ft.attach(frg);
-//                ft.commit();
-
-                    }
-                }, 3000);
-            }
+//                sqLiteDatabase.execSQL("delete from " + dbhelper.Tname3);
+//
+//
+//                places.clear();
+//
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        //onLoad();
+//
+//                        gridAdapter.notifyDataSetChanged();
+//
+//                        // cancel the Visual indication of a refresh
+//                        mswipeRefreshLayout.setRefreshing(false);
+////                getActivity().finish();
+////                startActivity(getActivity().getIntent());
+//
+////                Fragment frag= null;
+////                frag = getFragmentManager().getFragments().get(1);
+////                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+////
+////                ft.detach(frag);
+////                ft.attach(frag);
+////                ft.commit();
+//
+//
+////                Fragment frg = null;
+////                frg = getSupportFragmentManager().findFragmentByTag("Your_Fragment_TAG");
+////                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+////                ft.detach(frg);
+////                ft.attach(frg);
+////                ft.commit();
+//
+//                    }
+//                }, 3000);
+//            }
 
             private void fetchData() {
 
