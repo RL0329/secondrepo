@@ -196,40 +196,40 @@ public class FragList extends Fragment {
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    private void reload() {
-        sqLiteDatabase.execSQL("insert into " + dbhelper.Tname2 + "(" + dbhelper.t2col2 + "," + dbhelper.t2col3 + "," + dbhelper.t2col4 +
-                ") select " + dbhelper.t3col2 + "," + dbhelper.t3col3 + "," + dbhelper.t3col4 + " from " + dbhelper.Tname3);
-
-        sqLiteDatabase.execSQL("delete from " + dbhelper.Tname3);
-
-
-        places.clear();
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                recyclerAdapter.notifyDataSetChanged();
-
-                // cancel the Visual indication of a refresh
-                mswipeRefreshLayout.setRefreshing(false);
-//                    getActivity().finish();
-//                    startActivity(getActivity().getIntent());
-
-
-//                Fragment frag= null;
-//                frag = getFragmentManager().getFragments().get(0);
-//                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+//    private void reload() {
+//        sqLiteDatabase.execSQL("insert into " + dbhelper.Tname2 + "(" + dbhelper.t2col2 + "," + dbhelper.t2col3 + "," + dbhelper.t2col4 +
+//                ") select " + dbhelper.t3col2 + "," + dbhelper.t3col3 + "," + dbhelper.t3col4 + " from " + dbhelper.Tname3);
 //
-//                ft.detach(frag);
-//                ft.attach(frag);
-//                ft.commit();
-
-
-            }
-        }, 3000);
-    }
+//        sqLiteDatabase.execSQL("delete from " + dbhelper.Tname3);
+//
+//
+//        places.clear();
+//
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                recyclerAdapter.notifyDataSetChanged();
+//
+//                // cancel the Visual indication of a refresh
+//                mswipeRefreshLayout.setRefreshing(false);
+////                    getActivity().finish();
+////                    startActivity(getActivity().getIntent());
+//
+//
+////                Fragment frag= null;
+////                frag = getFragmentManager().getFragments().get(0);
+////                final android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+////
+////                ft.detach(frag);
+////                ft.attach(frag);
+////                ft.commit();
+//
+//
+//            }
+//        }, 3000);
+//    }
 
     private void fetchData() {
 

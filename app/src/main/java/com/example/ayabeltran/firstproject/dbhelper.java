@@ -119,6 +119,13 @@ public class dbhelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
     }
+
+    public Cursor gridItemslisted (SQLiteDatabase db) {
+        String items = "select * from imgTable order by "+t2col1+" desc limit 15";
+        Log.d("items", items);
+        Cursor cursor = db.rawQuery(items, null);
+        return cursor;
+    }
 //    public Cursor pulledItens (SQLiteDatabase db) {
 //        String pull = "select * from imgTable order by "+t2col1+" desc limit 5 offset 5";
 //        Log.d("pull", pull);
