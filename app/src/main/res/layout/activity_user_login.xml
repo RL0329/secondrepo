@@ -57,6 +57,7 @@
         android:background="#FFEB3B"
         android:text="@string/log_in"
         android:gravity="bottom"
+        android:layout_marginTop="25dp"
         android:textAlignment="center"/>
 
 
