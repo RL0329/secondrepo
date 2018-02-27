@@ -9,13 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import java.util.*;
-import java.util.List;
 
 /**
  * Created by ayabeltran on 01/02/2018.
@@ -56,7 +53,6 @@ public class GridAdapter extends RecyclerView.Adapter <GridAdapter.MyViewHolder>
 
             this.photo = itemView.findViewById(R.id.imageViewGrid);
             this.name = itemView.findViewById(R.id.textViewGrid);
-//            this.des = itemView.findViewById(R.id.textdetails);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,8 +90,4 @@ public class GridAdapter extends RecyclerView.Adapter <GridAdapter.MyViewHolder>
         return places.size();
     }
 
-//    public void clearData() {
-//        places.clear();
-//        notifyDataSetChanged();
-//    }
 }
