@@ -59,5 +59,4 @@ public class UserLogin extends AppCompatActivity {
                 }
         );
     }
-
 }

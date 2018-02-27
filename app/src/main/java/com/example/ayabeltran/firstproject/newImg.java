@@ -7,30 +7,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-
 public class newImg extends AppCompatActivity {
 
     dbhelper mydb;
@@ -138,13 +127,10 @@ public class newImg extends AppCompatActivity {
         }
     }
 
-
     public void AddImage(){
         final String name = etnewimgname.getText().toString();
         final String des = etdesc.getText().toString();
         final byte [] data = getimagebyte(btnimg);
-
-
 
         if (name.isEmpty()){
             Toast.makeText(newImg.this, "please enter an image name.", Toast.LENGTH_SHORT).show();
@@ -162,12 +148,7 @@ public class newImg extends AppCompatActivity {
         mydb.addimg(data, name, des);
         Toast.makeText(newImg.this, "new photo added", Toast.LENGTH_SHORT).show();
 
-//        Intent uploaded = new Intent(newImg.this, List.class);
-//        startActivity(uploaded);
         finish();
-
-//        etnewimgname.setText("");
-//        etdesc.setText("");
     }
 
 
@@ -178,5 +159,4 @@ public class newImg extends AppCompatActivity {
         byte [] bytearray = stream.toByteArray();
         return bytearray;
     }
-
 }

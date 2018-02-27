@@ -14,28 +14,24 @@ import android.util.Log;
 
 public class dbhelper extends SQLiteOpenHelper{
 
-        public static final String dbname = "task1_4th.db";
-        public static final String Tname = "loginDetails";
-        public static final String Tname2 = "imgTable",
-                                    Tname3 ="newImgTable";
-
-        public static final String col1 ="id";
-        public static final String col2 ="email";
-        public static final String col3 ="uname";
-        public static final String col4 ="pword";
-        public static final String col5 ="fname";
-        public static final String col6 ="lname";
-        public static final String t2col1 ="id",
-                                    t2col2="photo",
-                                    t2col3="name",
-                                    t2col4="des",
+        public static final String dbname = "task1_4th.db",
+                                    loginTable = "loginDetails",
+                                    imgTable = "imgTable",
+                                    Tname3 ="newImgTable",
+                                    loginID ="id",
+                                    loginEmail ="email",
+                                    loginUname ="uname",
+                                    loginPword ="pword",
+                                    loginFname ="fname",
+                                    loginLname ="lname",
+                                    imgID ="id",
+                                    imgPhoto ="photo",
+                                    imgName ="name",
+                                    imgDesc ="des",
                                     t3col1 ="id",
                                     t3col2="photo",
                                     t3col3="name",
                                     t3col4="des";
-
-
-
 
 
     public dbhelper(Context context) {
@@ -46,19 +42,19 @@ public class dbhelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creates the tables //
-        db.execSQL("create table "+Tname+" ( "
-                +col1+" integer primary key autoincrement, "
-                +col2+" text not null unique, "
-                +col3+" text not null unique, "
-                +col4+" text not null, "
-                +col5+" text not null, "
-                +col6+" text not null);");
+        db.execSQL("create table "+ loginTable +" ( "
+                + loginID +" integer primary key autoincrement, "
+                + loginEmail +" text not null unique, "
+                + loginUname +" text not null unique, "
+                + loginPword +" text not null, "
+                + loginFname +" text not null, "
+                + loginLname +" text not null);");
 
-        db.execSQL("create table "+Tname2+" ("
-                +t2col1+" integer primary key autoincrement, "
-                +t2col2+" blob not null, "
-                +t2col3+" text not null, "
-                +t2col4+" text not null);");
+        db.execSQL("create table "+ imgTable +" ("
+                + imgID +" integer primary key autoincrement, "
+                + imgPhoto +" blob not null, "
+                + imgName +" text not null, "
+                + imgDesc +" text not null);");
 
         db.execSQL("create table "+Tname3+" ("
                 +t3col1+" integer primary key autoincrement, "
@@ -73,20 +69,20 @@ public class dbhelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop table if exists "+Tname);
-        db.execSQL("drop table if exists " + Tname2);
+        db.execSQL("drop table if exists "+ loginTable);
+        db.execSQL("drop table if exists " + imgTable);
         onCreate(db);
     }
         // method that inserts values into the userdetails table //
     public boolean adduser(String email, String uname, String pword, String fname, String lname) {
         SQLiteDatabase db =this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(col2, email);
-        contentValues.put(col3, uname);
-        contentValues.put(col4, pword);
-        contentValues.put(col5, fname);
-        contentValues.put(col6, lname);
-        long result = db.insert(Tname, null, contentValues);
+        contentValues.put(loginEmail, email);
+        contentValues.put(loginUname, uname);
+        contentValues.put(loginPword, pword);
+        contentValues.put(loginFname, fname);
+        contentValues.put(loginLname, lname);
+        long result = db.insert(loginTable, null, contentValues);
         if (result == -1)
             return false;
         else
@@ -99,7 +95,7 @@ public class dbhelper extends SQLiteOpenHelper{
         contentValues.put(t3col2, photo);
         contentValues.put(t3col3, name);
         contentValues.put(t3col4, des);
-         long result = db.insert(Tname2, null, contentValues);
+         long result = db.insert(imgTable, null, contentValues);
          if(result == -1)
              return false;
         else
@@ -114,25 +110,20 @@ public class dbhelper extends SQLiteOpenHelper{
     }
         // method that calls all the contents of the imgtable //
     public Cursor itemslisted (SQLiteDatabase db) {
-        String items = "select * from imgTable order by "+t2col1+" desc limit 10";
+        String items = "select * from imgTable order by "+ imgID +" desc limit 10";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
     }
 
     public Cursor gridItemslisted (SQLiteDatabase db) {
-        String items = "select * from imgTable order by "+t2col1+" desc limit 15";
+        String items = "select * from imgTable order by "+ imgID +" desc limit 15";
         Log.d("items", items);
         Cursor cursor = db.rawQuery(items, null);
         return cursor;
     }
-//    public Cursor pulledItens (SQLiteDatabase db) {
-//        String pull = "select * from imgTable order by "+t2col1+" desc limit 5 offset 5";
-//        Log.d("pull", pull);
-//        Cursor cursor = db.rawQuery(pull, null);
-//        return cursor;
-//    }
 
+        // total entries in imgTable
       public int getimgTableCount() {
         String countQuery = "SELECT  * FROM imgTable";
         SQLiteDatabase db = this.getReadableDatabase();
