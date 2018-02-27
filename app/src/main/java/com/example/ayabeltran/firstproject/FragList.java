@@ -93,8 +93,6 @@ public class FragList extends Fragment {
                     }
                 }, 3000);
 
-
-
             }
         });
 
