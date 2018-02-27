@@ -166,6 +166,23 @@ public class FragGrid extends Fragment {
     private void refreshList(){
                 Cursor cursor = getItemsFromDB();
                 populateList(cursor);
+
+                progressBar.setVisibility(View.VISIBLE);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 3; i++) {
+
+//                    gridAdapter.clearData();
+                    gridAdapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+
+                }
+
+
+            }
+        }, 3000);
             }
 
     private void populateList(Cursor cursor) {
